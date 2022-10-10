@@ -34,7 +34,8 @@ SOURCES += \
     hs_collect_setting.cpp \
     hs_node.cpp \
     hs_thread.cpp \
-    hs_analyse_action.cpp
+    hs_analyse_action.cpp \
+    hs_node_setting.cpp
 
 
 HEADERS += \
@@ -45,7 +46,8 @@ HEADERS += \
     hs_collect_setting.h \
     hs_node.h \
     hs_thread.h \
-    hs_analyse_action.h
+    hs_analyse_action.h \
+    hs_node_setting.h
 
 
 FORMS += \
@@ -54,7 +56,8 @@ FORMS += \
     hs_analyse.ui \
     hs_opcuaclient.ui \
     hs_collect_setting.ui \
-    hs_analyse_action.ui
+    hs_analyse_action.ui \
+    hs_node_setting.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

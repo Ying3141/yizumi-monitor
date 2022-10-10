@@ -29,10 +29,16 @@ void Hs_analyse::receive_client(Hs_OpcUAClient *m_client)
     this->m_client=m_client;
 }
 
-void Hs_analyse::collect_setting()
+void Hs_analyse::node_select()
 {
-    m_collect_setting=new Hs_collect_setting(m_nodes);
-    m_collect_setting->show();
+    m_node_select=new Hs_collect_setting(m_nodes);
+    m_node_select->show();
+}
+
+void Hs_analyse::node_setting()
+{
+    m_node_setting=new Hs_Node_setting(m_nodes);
+    m_node_setting->show();
 }
 
 //void Hs_analyse::create_analyse()

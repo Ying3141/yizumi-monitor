@@ -17,43 +17,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
-//void MainWindow::on_create_analyse_clicked()
-//{
-////    Hs_analyse *analyse=new Hs_analyse();
-////    analyse->show();
-//    m_table=new QTableWidget(m_nodes.size()+1,1,this);
-
-
-
-//    m_DownLay->addWidget(m_table);
-//}
-
-//void MainWindow::on_update_data_clicked()
-//{
-//    QOpcUaNode *node;
-//    QTableWidgetItem *headerItem;
-//    for(int i=0;i<m_nodes.size();i++)
-//    {
-//        //node=m_client->m_client->node(m_nodes[i]->get_node_id());
-//        testnode=m_client->m_client->node("ns=4;s=APPL.Injection1.sv_rScrewPositionAbs");
-//        MyThread *thread2=new MyThread(testnode);
-//        thread2->start();
-//        //停止线程
-//        thread2->quit();
-//        //等待线程处理完手头工作
-//        thread2->wait();
-
-//        qDebug()<<testnode->valueAttribute().value<float>();
-//        headerItem=new QTableWidgetItem(QString::number(testnode->valueAttribute().value<float>()));
-//        m_table->setItem(i+1,m_table->columnCount()-1,headerItem);
-//    }
-
-//    int curCol=m_table->columnCount();
-//    m_table->insertColumn(curCol);
-
-//}
-
 //void MainWindow::on_test2_clicked()
 //{
 //    testnode=m_client->m_client->node("ns=4;s=APPL.Injection1.sv_rScrewPositionAbs");
@@ -79,8 +42,6 @@ void MainWindow::initializeTab()
 
     analyse=new Hs_analyse();
     analyse_action=new Hs_Analyse_Action();
-    connect(analyse,&Hs_analyse::create_analyse,this,&MainWindow::on_create_analyse);//点击创建分析时创建表格
-    connect(analyse,&Hs_analyse::update_data,this,&MainWindow::on_update_data);
     analyse_action->bindWidget(analyse);
     m_TabWidget->addTab(analyse_action,"连接设备");
 
@@ -144,5 +105,6 @@ void MainWindow::on_update_data()
 
 void MainWindow::initslots()
 {
-
+    connect(analyse,&Hs_analyse::create_analyse,this,&MainWindow::on_create_analyse);//点击创建分析时创建表格
+    connect(analyse,&Hs_analyse::update_data,this,&MainWindow::on_update_data);
 }

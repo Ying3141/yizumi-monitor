@@ -5,6 +5,7 @@
 #include <QTableWidget>
 #include "hs_connect_to_server.h"
 #include "hs_collect_setting.h"
+#include "hs_node_setting.h"
 
 class MainWindow;
 
@@ -21,7 +22,8 @@ public:
     ~Hs_analyse();
 
     void connect_to_server();
-    void collect_setting();
+    void node_select();
+    void node_setting();
     //void create_analyse();
     //void update_data();
     void test1();
@@ -41,7 +43,8 @@ private:
     Ui::Hs_analyse          *ui;
     QVector<hs_node*>       m_nodes;
     Hs_connect_to_server    *m_connect_to_server=nullptr;
-    Hs_collect_setting      *m_collect_setting=nullptr;
+    Hs_collect_setting      *m_node_select=nullptr;
+    Hs_Node_setting         *m_node_setting=nullptr;
     Hs_OpcUAClient          *m_client=nullptr;
     MainWindow              *m_parent=nullptr;
 

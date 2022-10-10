@@ -18,10 +18,10 @@ public:
 
 public:
     void bindWidget(QWidget *widget);
-    void initialize();
 
 private:
     void initialize_slots();
+    void initialize();
 
 private:
     Ui::Hs_Analyse_Action *ui;
@@ -30,6 +30,7 @@ private:
 
 private slots:
     void on_connect_to_server_clicked();
+    void on_node_select_clicked();
     void on_node_setting_clicked();
     void on_create_analyse_clicked();
     void on_update_data_clicked();

@@ -23,6 +23,7 @@ void Hs_Analyse_Action::bindWidget(QWidget *widget)
 void Hs_Analyse_Action::initialize()
 {
     ui->connect_to_server->setFixedSize(60,80);
+    ui->node_select->setFixedSize(60,80);
     ui->node_setting->setFixedSize(60,80);
     ui->create_analyse->setFixedSize(60,80);
     ui->update_data->setFixedSize(60,80);
@@ -30,6 +31,7 @@ void Hs_Analyse_Action::initialize()
     ui->test2->setFixedSize(60,80);
 
     ui->connect_to_server->setText("连接\n设备");
+    ui->node_select->setText("节点\n选择");
     ui->node_setting->setText("节点\n设置");
     ui->create_analyse->setText("创建\n分析");
     ui->update_data->setText("更新\n数据");
@@ -52,9 +54,14 @@ void Hs_Analyse_Action::on_connect_to_server_clicked()
     m_analyse->connect_to_server();
 }
 
+void Hs_Analyse_Action::on_node_select_clicked()
+{
+    m_analyse->node_select();
+}
+
 void Hs_Analyse_Action::on_node_setting_clicked()
 {
-    m_analyse->collect_setting();
+    m_analyse->node_setting();
 }
 
 void Hs_Analyse_Action::on_create_analyse_clicked()

@@ -31,7 +31,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="node_setting">
+     <widget class="QPushButton" name="node_select">
       <property name="text">
        <string>PushButton</string>
       </property>
@@ -39,6 +39,13 @@
     </item>
     <item>
      <widget class="QPushButton" name="create_analyse">
+      <property name="text">
+       <string>PushButton</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="node_setting">
       <property name="text">
        <string>PushButton</string>
       </property>
