@@ -28,10 +28,10 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-//    Ui::MainWindow      *ui;
-//    QHBoxLayout         *m_DownLay;
-//    QTableWidget        *m_table=nullptr;
-//    Hs_analyse          *analyse=nullptr;
+    Ui::MainWindow      *ui;
+    QHBoxLayout         *m_DownLay;
+    QTableWidget        *m_table=nullptr;
+    Hs_analyse          *analyse=nullptr;
 
     void initializeTab();
     void initializeUI();
@@ -39,15 +39,15 @@ public:
 
 private slots:
 
-    void on_create_analyse();
-    void on_update_data();
+//    void on_create_analyse();
+//    void on_update_data();
     void set_statusbartext(QString);
 
 private:
-    Ui::MainWindow      *ui;
-    QHBoxLayout         *m_DownLay;
-    QTableWidget        *m_table=nullptr;
-    Hs_analyse          *analyse=nullptr;
+//    Ui::MainWindow      *ui;
+//    QHBoxLayout         *m_DownLay;
+//    QTableWidget        *m_table=nullptr;
+//    Hs_analyse          *analyse=nullptr;
     QTabWidget          *m_TabWidget;
     QGridLayout         *m_mainVLay;
     QHBoxLayout         *m_UpLay;

@@ -24,8 +24,8 @@ public:
     void connect_to_server();
     void node_select();
     void node_setting();
-    //void create_analyse();
-    //void update_data();
+    void create_analyse();
+    void update_data();
     void test1();
     void test2();
 
@@ -33,8 +33,8 @@ public:
     Hs_OpcUAClient*     get_m_client();
 
 signals:
-    void create_analyse();
-    void update_data();
+    //void create_analyse();
+    //void update_data();
 
 private slots:
     void receive_client(Hs_OpcUAClient*);
