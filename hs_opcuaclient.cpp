@@ -15,7 +15,6 @@ Hs_OpcUAClient::Hs_OpcUAClient(QString url,QWidget *parent) :
     connect(m_client,&QOpcUaClient::endpointsRequestFinished,this,&Hs_OpcUAClient::SLOT_endpointsRequestFinished);
     connect(m_client,&QOpcUaClient::stateChanged,this,&Hs_OpcUAClient::SLOT_stateChanged);
 
-
     m_client->requestEndpoints(QUrl(m_sUrl));
 }
 

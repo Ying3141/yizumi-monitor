@@ -28,10 +28,10 @@ signals:
 
 public:
     Ui::Hs_OpcUAClient *ui;
-    QString m_sUrl;
-    QOpcUaProvider *m_provider;
-    QOpcUaClient *m_client;
-    QOpcUaNode* m_node;
+    QString         m_sUrl;
+    QOpcUaProvider  *m_provider;
+    QOpcUaClient    *m_client;
+    QOpcUaNode      *m_node;
 
 };
 

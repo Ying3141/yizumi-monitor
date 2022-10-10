@@ -19,12 +19,14 @@ void Hs_connect_to_server::on_connect_button_clicked()
 {
     m_serverURL=new QString();
     *m_serverURL=m_server_address_input->text();
+
     if(*m_serverURL!="")
     {
         m_client=new Hs_OpcUAClient(*m_serverURL);
         sendclient(m_client);
         connect(m_client,SIGNAL(send_connect_status(QString)),this,SLOT(receive_connect_status(QString)));
     }
+
     close();
 }
 
