@@ -5,7 +5,7 @@
 #include <QTableWidget>
 
 namespace Ui {
-class Hs_analyse;//aaa
+class Hs_analyse;
 }
 
 class Hs_analyse : public QWidget
