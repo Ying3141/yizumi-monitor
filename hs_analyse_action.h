@@ -17,6 +17,7 @@ public:
     ~Hs_Analyse_Action();
 
 public:
+    //动作类与实现类绑定函数
     void bindWidget(QWidget *widget);
 
 private:
@@ -29,6 +30,7 @@ private:
     Hs_analyse *m_analyse=nullptr;
 
 private slots:
+    //按键功能绑定
     void on_connect_to_server_clicked();
     void on_node_select_clicked();
     void on_node_setting_clicked();

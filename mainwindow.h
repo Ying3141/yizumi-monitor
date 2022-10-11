@@ -26,6 +26,11 @@ public:
     QTableWidget        *m_table=nullptr;
     Hs_analyse          *analyse=nullptr;
 
+    //初始化TabWidget，
+    //初始化动作类hs_analyse_action
+    //初始化动作实现类hs_analyse
+    //目前所有功能放在Hs_analyse模块下
+
     void initializeTab();
     void initializeUI();
     void initslots();
