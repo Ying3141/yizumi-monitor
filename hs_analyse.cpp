@@ -20,8 +20,11 @@ Hs_analyse::~Hs_analyse()
 
 void Hs_analyse::connect_to_server()
 {
-    m_connect_to_server=new Hs_connect_to_server();
-    connect(m_connect_to_server,SIGNAL(sendclient(Hs_OpcUAClient*)),this,SLOT(receive_client(Hs_OpcUAClient*)));
+    if(!m_connect_to_server)
+    {
+        m_connect_to_server=new Hs_connect_to_server();
+        connect(m_connect_to_server,SIGNAL(sendclient(Hs_OpcUAClient*)),this,SLOT(receive_client(Hs_OpcUAClient*)));
+    }
     m_connect_to_server->show();
 }
 
@@ -32,13 +35,20 @@ void Hs_analyse::receive_client(Hs_OpcUAClient *m_client)
 
 void Hs_analyse::node_select()
 {
-    m_node_select=new Hs_collect_setting(m_client,m_nodes);
+    if(!m_node_select)
+    {
+        m_node_select=new Hs_collect_setting(m_client,m_nodes);
+    }
     m_node_select->show();
 }
 
 void Hs_analyse::node_setting()
 {
-    m_node_setting=new Hs_Node_setting(m_nodes);
+    if(!m_node_setting)
+    {
+        m_node_setting=new Hs_Node_setting(m_nodes);
+    }
+    m_node_setting->initialize();
     m_node_setting->show();
 }
 
@@ -95,7 +105,7 @@ void Hs_analyse::test1()//测试写
 
 }
 
-void Hs_analyse::test2()//测试接受数据变化信号
+void Hs_analyse::test2()
 {
     qDebug()<<"works2";
     QOpcUaNode *node=(QOpcUaNode*)sender();
@@ -108,6 +118,7 @@ void Hs_analyse::test2()//测试接受数据变化信号
         headerItem=new QTableWidgetItem(QString::number(node->valueAttribute().value<float>()));
         m_parent->m_table->setItem(m_map[node]+1,m_parent->m_table->columnCount()-1,headerItem);
     }
+
     m_map.insert(node,index);
     QTableWidgetItem *headerItem;
     headerItem=new QTableWidgetItem(QString::number(node->valueAttribute().value<float>()));

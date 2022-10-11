@@ -16,6 +16,7 @@ class Hs_Node_setting : public QWidget
 public:
     explicit Hs_Node_setting(QVector<hs_node*>&m_nodes,QWidget *parent = nullptr);
     ~Hs_Node_setting();
+    void initialize();
 
 private slots:
     void on_nodename_comboBox_currentIndexChanged(int index);
@@ -25,7 +26,7 @@ private slots:
     void on_downlimit_doubleSpinBox_valueChanged(double arg1);
 
 private:
-    void initialize();
+
 
 private:
     Ui::Hs_Node_setting *ui;
