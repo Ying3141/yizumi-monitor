@@ -29,13 +29,11 @@ void Hs_analyse::receive_client(Hs_OpcUAClient *m_client)
 {
     this->m_client=m_client;
 
-    m_shotcountNode=m_client->m_client->node("ns=4;s=APPL.system.sv_iShotCounterAct");//连接到周期参数，备用
-    m_shotcountNode->enableMonitoring(QOpcUa::NodeAttribute::Value,QOpcUaMonitoringParameters(100));//对周期参数进行监视
 }
 
 void Hs_analyse::node_select()
 {
-    m_node_select=new Hs_collect_setting(m_nodes);
+    m_node_select=new Hs_collect_setting(m_client,m_nodes);
     m_node_select->show();
 }
 
@@ -68,19 +66,20 @@ void Hs_analyse::create_analyse()
 
 void Hs_analyse::update_data()
 {
-    connect(m_shotcountNode,&QOpcUaNode::dataChangeOccurred,this,&Hs_analyse::test2);
+
+//    m_shotcountNode=m_client->m_client->node("ns=4;s=APPL.system.sv_iShotCounterAct");//连接到周期参数，备用
+//    m_shotcountNode->enableMonitoring(QOpcUa::NodeAttribute::Value,QOpcUaMonitoringParameters(100));//对周期参数进行监视
+//    connect(m_shotcountNode,&QOpcUaNode::dataChangeOccurred,this,&Hs_analyse::test2);
 
 
     qDebug()<<"works";
 
-//    for(int i=0;i<m_parent->analyse->get_m_nodes().size();i++)
-//    {
-//        testnode=m_parent->analyse->get_m_client()->m_client->node(m_parent->analyse->get_m_nodes().at(i)->get_node_id());
-//        connect(testnode,&QOpcUaNode::attributeRead,this,&Hs_analyse::test2);
-//        testnode->readAttributes(QOpcUa::NodeAttribute::Value);
-//        qDebug()<<testnode->valueAttribute().value<float>();
-//        disconnect(testnode);
-//    }
+    for(int i=0;i<m_nodes.size();i++)
+    {
+        m_nodes[i]->get_m_node()->disconnect();
+        connect(m_nodes[i]->get_m_node(),&QOpcUaNode::attributeRead,this,&Hs_analyse::test2);
+        m_nodes[i]->get_m_node()->readAttributes(QOpcUa::NodeAttribute::Value);
+    }
 
 //    testnode=m_parent->analyse->get_m_client()->m_client->node("ns=4;s=APPL.Injection1.sv_InjectProfVis.Profile.Points[1].rPressure");
 //    connect(testnode,&QOpcUaNode::attributeRead,this,&Hs_analyse::test2);
@@ -88,40 +87,44 @@ void Hs_analyse::update_data()
 //    disconnect(testnode);
 
 
-    testnode=m_parent->analyse->get_m_client()->m_client->node("ns=4;s=APPL.Injection1.sv_rScrewPositionAbs");
-    connect(testnode,&QOpcUaNode::attributeRead,this,&Hs_analyse::test2);
-    newthread=new MyThread(testnode);
-    newthread->start();
-    newthread->quit();
-    newthread->wait();
-    delete newthread;
-    newthread=nullptr;
-    disconnect(testnode);
-    delete testnode;
-    testnode=nullptr;
+    //testnode=m_parent->analyse->get_m_client()->m_client->node("ns=4;s=APPL.Injection1.sv_rScrewPositionAbs");
+//    connect(testnode,&QOpcUaNode::attributeRead,this,&Hs_analyse::test2);
+//    newthread=new MyThread(testnode);
+//    newthread->start();
+//    newthread->quit();
+//    newthread->wait();
+//    delete newthread;
+//    newthread=nullptr;
+//    disconnect(testnode);
+//    delete testnode;
+//    testnode=nullptr;
 
 
-    testnode=m_parent->analyse->get_m_client()->m_client->node("ns=4;s=APPL.Injection1.sv_InjectProfVis.Profile.Points[1].rPressure");
-    connect(testnode,&QOpcUaNode::attributeRead,this,&Hs_analyse::test2);
-    newthread=new MyThread(testnode);
-    newthread->start();
-    newthread->quit();
-    newthread->wait();
-    delete newthread;
-    disconnect(testnode);
-    delete testnode;
-    testnode=nullptr;
+//    testnode=m_parent->analyse->get_m_client()->m_client->node("ns=4;s=APPL.Injection1.sv_InjectProfVis.Profile.Points[1].rPressure");
+//    connect(testnode,&QOpcUaNode::attributeRead,this,&Hs_analyse::test2);
+//    testnode->readAttributes(QOpcUa::NodeAttribute::Value);
 
-    testnode=m_parent->analyse->get_m_client()->m_client->node("ns=4;s=APPL.Injection1.sv_InjectProfVis.Profile.Points[2].rPressure");
-    connect(testnode,&QOpcUaNode::attributeRead,this,&Hs_analyse::test2);
-    newthread=new MyThread(testnode);
-    newthread->start();
-    newthread->quit();
-    newthread->wait();
-    delete newthread;
-    disconnect(testnode);
-    delete testnode;
-    testnode=nullptr;
+//    connect(testnode,&QOpcUaNode::attributeRead,this,&Hs_analyse::test2);
+//    newthread=new MyThread(testnode);
+//    newthread->start();
+//    newthread->quit();
+//    newthread->wait();
+//    delete newthread;
+//    disconnect(testnode);
+//    delete testnode;
+//    testnode=nullptr;
+
+//    testnode2=m_parent->analyse->get_m_client()->m_client->node("ns=4;s=APPL.Injection1.sv_InjectProfVis.Profile.Points[2].rPressure");
+//    connect(testnode2,&QOpcUaNode::attributeRead,this,&Hs_analyse::test2);
+//    testnode2->readAttributes(QOpcUa::NodeAttribute::Value);
+//    newthread=new MyThread(testnode);
+//    newthread->start();
+//    newthread->quit();
+//    newthread->wait();
+//    delete newthread;
+//    disconnect(testnode);
+//    delete testnode;
+//    testnode=nullptr;
 
 
 //    qDebug()<<testnode->valueAttribute().value<float>();
@@ -141,14 +144,11 @@ void Hs_analyse::test1()//测试写
 
 }
 
-void Hs_analyse::test2()//测试接受数据变化信号
+void Hs_analyse::test2(int i)//测试接受数据变化信号
 {
     qDebug()<<"works2";
-
-    //testnode=m_client->m_client->node("ns=4;s=APPL.Injection1.sv_InjectProfVis.Profile.Points[1].rPressure");
-    //testnode=m_client->m_client->node("ns=4;s=APPL.Injection1.sv_rScrewPositionAbs");
-    qDebug()<<testnode->valueAttribute().value<float>();
-
+    QOpcUaNode *node=(QOpcUaNode*)sender();
+    qDebug()<<node->valueAttribute().value<float>();
 
 //    QTableWidgetItem *headerItem;
 //    headerItem=new QTableWidgetItem(QString::number(testnode->valueAttribute().value<float>()));

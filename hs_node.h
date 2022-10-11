@@ -7,7 +7,7 @@
 class hs_node
 {
 public:
-    hs_node (QString name,QString node_id,bool usable,float up_limit=0.0,float down_limit=0.0);
+    hs_node (QOpcUaNode *node,QString name,QString node_id,bool usable,float up_limit=0.0,float down_limit=0.0);
     void    set_name(QString);
     void    set_node_id(QString);
     void    set_usable(bool);
@@ -18,6 +18,7 @@ public:
     bool    get_usable();
     float   get_up_limit();
     float   get_down_limit();
+    QOpcUaNode* get_m_node();
 
 private:
     QString name;
@@ -25,6 +26,7 @@ private:
     bool    usable;
     float   up_limit;
     float   down_limit;
+    QOpcUaNode *m_node;
 };
 
 #endif // HS_NODE_H

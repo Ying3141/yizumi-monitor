@@ -16,7 +16,7 @@ class Hs_collect_setting : public QWidget
     Q_OBJECT
 
 public:
-    explicit Hs_collect_setting(QVector<hs_node*>&m_nodes,QWidget *parent = nullptr);
+    explicit Hs_collect_setting(Hs_OpcUAClient*,QVector<hs_node*>&m_nodes,QWidget *parent = nullptr);
     ~Hs_collect_setting();
     void initialize();
 
@@ -27,6 +27,7 @@ private:
     Ui::Hs_collect_setting *ui;
     QVector<hs_node*>   *m_nodes;
     QGridLayout         *m_GridLayout;
+    Hs_OpcUAClient      *m_client;
 };
 
 #endif // HS_COLLECT_SETTING_H

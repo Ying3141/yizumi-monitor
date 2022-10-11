@@ -42,7 +42,7 @@ signals:
 private slots:
     //接受来自Hs_connect_to_server类的服务器
     void receive_client(Hs_OpcUAClient*);
-    void test2();
+    void test2(int i);
 
 private:
     Ui::Hs_analyse          *ui;
@@ -56,6 +56,7 @@ private:
     QOpcUaNode              *m_shotcountNode;
 //测试节点
     QOpcUaNode              *testnode;
+    QOpcUaNode              *testnode2;
     MyThread                *newthread=nullptr;
 
 };

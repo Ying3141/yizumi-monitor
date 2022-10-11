@@ -1,7 +1,8 @@
 #include "hs_node.h"
 
-hs_node::hs_node(QString name,QString node_id,bool usable,float up_limit,float down_limit)
+hs_node::hs_node(QOpcUaNode *node,QString name,QString node_id,bool usable,float up_limit,float down_limit)
 {
+    this->m_node=node;
     this->name=name;
     this->node_id=node_id;
     this->usable=usable;
@@ -57,4 +58,9 @@ float hs_node::get_up_limit()
 float hs_node::get_down_limit()
 {
     return this->down_limit;
+}
+
+QOpcUaNode* hs_node::get_m_node()
+{
+    return m_node;
 }
