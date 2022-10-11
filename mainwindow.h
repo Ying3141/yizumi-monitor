@@ -21,6 +21,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+//开放主界面UI权限，使子界面可以进行调用
     Ui::MainWindow      *ui;
     QHBoxLayout         *m_DownLay;
     QTableWidget        *m_table=nullptr;
@@ -36,16 +37,10 @@ public:
     void initslots();
 
 private slots:
-
-//    void on_create_analyse();
-//    void on_update_data();
     void set_statusbartext(QString);
 
 private:
-//    Ui::MainWindow      *ui;
-//    QHBoxLayout         *m_DownLay;
-//    QTableWidget        *m_table=nullptr;
-//    Hs_analyse          *analyse=nullptr;
+
     QTabWidget          *m_TabWidget;
     QGridLayout         *m_mainVLay;
     QHBoxLayout         *m_UpLay;
