@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "hs_node.h"
 
+//节点设置类，设置和查看不同节点的上下限。
 namespace Ui {
 class Hs_Node_setting;
 }

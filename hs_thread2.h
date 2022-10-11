@@ -4,6 +4,7 @@
 #include<QDebug>
 #include<QtOpcUa>
 
+//测试用线程，暂未使用
 class MainWindow;
 
 class MyThread_2 : public QThread

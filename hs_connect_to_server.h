@@ -10,7 +10,8 @@
 #include <QtOpcUa>
 #include "Hs_OpcUAClient.h"
 
-//连接服务器类，初始化一个服务器类Hs_OpcUAClient对象，根据输入框输入地址，点击连接设备后触发信号。自定义信号为发送当前创建的服务器，
+//连接服务器类，初始化一个服务器类Hs_OpcUAClient对象，根据输入框输入地址，点击连接设备后触发信号。
+//自定义信号为发送当前创建的服务器，在Hs_analyse中接受该服务器
 namespace Ui {
 class Hs_connect_to_server;
 }

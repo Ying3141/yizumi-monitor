@@ -23,10 +23,7 @@ void MainWindow::set_statusbartext(QString text)
     ui->statusBar->showMessage(text,5000);
 }
 
-//初始化TabWidget，
-//初始化动作类hs_analyse_action
-//初始化动作实现类hs_analyse
-//目前所有功能放在Hs_analyse模块下
+
 void MainWindow::initializeTab()
 {
     m_TabWidget=new QTabWidget();
@@ -48,54 +45,8 @@ void MainWindow::initializeUI()
     m_UpLay->addWidget(m_TabWidget);
 }
 
-//void MainWindow::on_create_analyse()
-//{
-//    if(m_table)
-//    {
-//        m_DownLay->removeWidget(m_table);
-//    }
-
-//    m_table=new QTableWidget(analyse->get_m_nodes().size()+1,1,this);
-
-//    QTableWidgetItem *headerItem;
-//    headerItem=new QTableWidgetItem("产品重量");
-//    m_table->setVerticalHeaderItem(0,headerItem);
-
-//    for(int i=0;i<analyse->get_m_nodes().size();i++)
-//    {
-//        headerItem=new QTableWidgetItem(analyse->get_m_nodes().at(i)->get_name());
-//        m_table->setVerticalHeaderItem(i+1,headerItem);
-//    }
-//    m_DownLay->addWidget(m_table);
-//}
-
-//void MainWindow::on_update_data()
-//{
-//    QOpcUaNode *node;
-//    QTableWidgetItem *headerItem;
-//    for(int i=0;i<analyse->get_m_nodes().size();i++)
-//    {
-//        node=analyse->get_m_client()->m_client->node(analyse->get_m_nodes().at(0)->get_node_id());
-//        //node=analyse->get_m_client()->m_client->node("ns=4;s=APPL.Injection1.sv_rScrewPositionAbs");
-
-//        MyThread *thread2=new MyThread(node);
-//        thread2->start();
-//        //停止线程
-//        thread2->quit();
-//        //等待线程处理完手头工作
-//        thread2->wait();
-
-//        qDebug()<<node->valueAttribute().value<float>();
-//        headerItem=new QTableWidgetItem(QString::number(node->valueAttribute().value<float>()));
-//        m_table->setItem(i+1,m_table->columnCount()-1,headerItem);
-//    }
-
-//    int curCol=m_table->columnCount();
-//    m_table->insertColumn(curCol);
-//}
 
 void MainWindow::initslots()
 {
-    //connect(analyse,&Hs_analyse::create_analyse,this,&MainWindow::on_create_analyse);//点击创建分析时创建表格
-    //connect(analyse,&Hs_analyse::update_data,this,&MainWindow::on_update_data);
+
 }

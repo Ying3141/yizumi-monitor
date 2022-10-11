@@ -52,9 +52,11 @@ private:
     Hs_Node_setting         *m_node_setting=nullptr;
     Hs_OpcUAClient          *m_client=nullptr;
     MainWindow              *m_parent=nullptr;
+//周期计数节点
     QOpcUaNode              *m_shotcountNode;
 //测试节点
     QOpcUaNode              *testnode;
+    MyThread                *newthread=nullptr;
 
 };
 

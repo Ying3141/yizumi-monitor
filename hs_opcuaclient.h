@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QtOpcUa>
 
-
+//服务器类，构造函数为连接到指定地址服务器。
 namespace Ui {
 class Hs_OpcUAClient;
 }

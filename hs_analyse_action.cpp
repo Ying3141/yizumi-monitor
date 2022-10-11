@@ -81,5 +81,6 @@ void Hs_Analyse_Action::on_test1_clicked()
 
 void Hs_Analyse_Action::on_test2_clicked()
 {
+    //test2是槽
     //m_analyse->test2();
 }

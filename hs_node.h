@@ -3,6 +3,7 @@
 #include <QString>
 #include <QOpcUaNode>
 
+//节点类，包括节点中文名，node名，上下限，是否启用
 class hs_node
 {
 public:

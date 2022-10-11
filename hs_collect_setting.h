@@ -6,7 +6,7 @@
 #include "hs_opcuaclient.h"
 #include "hs_node.h"
 
-//节点添加类，输入节点中文意义和node名，添加节点到Hs_node节点类。自定义信号为发送当前创建的服务器，
+//节点添加类，输入节点中文意义和node名，添加节点到Hs_node节点类。
 namespace Ui {
 class Hs_collect_setting;
 }
