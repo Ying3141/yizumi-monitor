@@ -9,6 +9,7 @@
 #include "hs_thread.h"
 #include "hs_thread2.h"
 #include "windows.h"
+#include <QMap>
 
 class MainWindow;
 
@@ -42,7 +43,7 @@ signals:
 private slots:
     //接受来自Hs_connect_to_server类的服务器
     void receive_client(Hs_OpcUAClient*);
-    void test2(int i);
+    void test2();
 
 private:
     Ui::Hs_analyse          *ui;
@@ -52,6 +53,8 @@ private:
     Hs_Node_setting         *m_node_setting=nullptr;
     Hs_OpcUAClient          *m_client=nullptr;
     MainWindow              *m_parent=nullptr;
+    QMap<QOpcUaNode*,int>   m_map;
+
 //周期计数节点
     QOpcUaNode              *m_shotcountNode;
 //测试节点

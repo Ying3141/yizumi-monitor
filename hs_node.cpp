@@ -2,7 +2,7 @@
 
 hs_node::hs_node(QOpcUaNode *node,QString name,QString node_id,bool usable,float up_limit,float down_limit)
 {
-    this->m_node=node;
+    this->m_node=node;//每个节点都直接包含opcuanode实例
     this->name=name;
     this->node_id=node_id;
     this->usable=usable;

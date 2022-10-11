@@ -7,7 +7,7 @@
 class hs_node
 {
 public:
-    hs_node (QOpcUaNode *node,QString name,QString node_id,bool usable,float up_limit=0.0,float down_limit=0.0);
+    hs_node (QOpcUaNode *node,QString name,QString node_id,bool usable,float up_limit=0.0,float down_limit=0.0);//每个节点都直接包含opcuanode实例
     void    set_name(QString);
     void    set_node_id(QString);
     void    set_usable(bool);

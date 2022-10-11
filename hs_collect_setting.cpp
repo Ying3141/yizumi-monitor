@@ -18,7 +18,7 @@ Hs_collect_setting::~Hs_collect_setting()
 
 void Hs_collect_setting::on_pushButton_clicked()
 {
-    hs_node *new_node=new hs_node(m_client->m_client->node(ui->node_input->text()),ui->ch_input->text(),ui->node_input->text(),true);
+    hs_node *new_node=new hs_node(m_client->m_client->node(ui->node_input->text()),ui->ch_input->text(),ui->node_input->text(),true);//直接实例化opcuanode
     m_nodes->push_back(new_node);
     ui->chinese_names->appendPlainText(m_nodes->back()->get_name());
     ui->node_names->appendPlainText(m_nodes->back()->get_node_id());

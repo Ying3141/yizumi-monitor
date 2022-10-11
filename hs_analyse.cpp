@@ -28,7 +28,6 @@ void Hs_analyse::connect_to_server()
 void Hs_analyse::receive_client(Hs_OpcUAClient *m_client)
 {
     this->m_client=m_client;
-
 }
 
 void Hs_analyse::node_select()
@@ -71,6 +70,8 @@ void Hs_analyse::update_data()
 //    m_shotcountNode->enableMonitoring(QOpcUa::NodeAttribute::Value,QOpcUaMonitoringParameters(100));//对周期参数进行监视
 //    connect(m_shotcountNode,&QOpcUaNode::dataChangeOccurred,this,&Hs_analyse::test2);
 
+    int curCol=m_parent->m_table->columnCount();
+    m_parent->m_table->insertColumn(curCol);
 
     qDebug()<<"works";
 
@@ -80,56 +81,6 @@ void Hs_analyse::update_data()
         connect(m_nodes[i]->get_m_node(),&QOpcUaNode::attributeRead,this,&Hs_analyse::test2);
         m_nodes[i]->get_m_node()->readAttributes(QOpcUa::NodeAttribute::Value);
     }
-
-//    testnode=m_parent->analyse->get_m_client()->m_client->node("ns=4;s=APPL.Injection1.sv_InjectProfVis.Profile.Points[1].rPressure");
-//    connect(testnode,&QOpcUaNode::attributeRead,this,&Hs_analyse::test2);
-//    testnode->readAttributes(QOpcUa::NodeAttribute::Value);
-//    disconnect(testnode);
-
-
-    //testnode=m_parent->analyse->get_m_client()->m_client->node("ns=4;s=APPL.Injection1.sv_rScrewPositionAbs");
-//    connect(testnode,&QOpcUaNode::attributeRead,this,&Hs_analyse::test2);
-//    newthread=new MyThread(testnode);
-//    newthread->start();
-//    newthread->quit();
-//    newthread->wait();
-//    delete newthread;
-//    newthread=nullptr;
-//    disconnect(testnode);
-//    delete testnode;
-//    testnode=nullptr;
-
-
-//    testnode=m_parent->analyse->get_m_client()->m_client->node("ns=4;s=APPL.Injection1.sv_InjectProfVis.Profile.Points[1].rPressure");
-//    connect(testnode,&QOpcUaNode::attributeRead,this,&Hs_analyse::test2);
-//    testnode->readAttributes(QOpcUa::NodeAttribute::Value);
-
-//    connect(testnode,&QOpcUaNode::attributeRead,this,&Hs_analyse::test2);
-//    newthread=new MyThread(testnode);
-//    newthread->start();
-//    newthread->quit();
-//    newthread->wait();
-//    delete newthread;
-//    disconnect(testnode);
-//    delete testnode;
-//    testnode=nullptr;
-
-//    testnode2=m_parent->analyse->get_m_client()->m_client->node("ns=4;s=APPL.Injection1.sv_InjectProfVis.Profile.Points[2].rPressure");
-//    connect(testnode2,&QOpcUaNode::attributeRead,this,&Hs_analyse::test2);
-//    testnode2->readAttributes(QOpcUa::NodeAttribute::Value);
-//    newthread=new MyThread(testnode);
-//    newthread->start();
-//    newthread->quit();
-//    newthread->wait();
-//    delete newthread;
-//    disconnect(testnode);
-//    delete testnode;
-//    testnode=nullptr;
-
-
-//    qDebug()<<testnode->valueAttribute().value<float>();
-//    headerItem=new QTableWidgetItem(QString::number(testnode->valueAttribute().value<float>()));
-//    m_parent->m_table->setItem(1,m_parent->m_table->columnCount()-1,headerItem);
 
 }
 
@@ -144,18 +95,18 @@ void Hs_analyse::test1()//测试写
 
 }
 
-void Hs_analyse::test2(int i)//测试接受数据变化信号
+void Hs_analyse::test2()//测试接受数据变化信号
 {
     qDebug()<<"works2";
     QOpcUaNode *node=(QOpcUaNode*)sender();
     qDebug()<<node->valueAttribute().value<float>();
 
+    //根据发送者，找到他在表格中应该的位置（行数）。
+
 //    QTableWidgetItem *headerItem;
-//    headerItem=new QTableWidgetItem(QString::number(testnode->valueAttribute().value<float>()));
+//    headerItem=new QTableWidgetItem(QString::number(node->valueAttribute().value<float>()));
 //    m_parent->m_table->setItem(i+1,m_parent->m_table->columnCount()-1,headerItem);
 
-    int curCol=m_parent->m_table->columnCount();
-    m_parent->m_table->insertColumn(curCol);
 }
 
 QVector<hs_node*> Hs_analyse::get_m_nodes()
