@@ -17,19 +17,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-//void MainWindow::on_test2_clicked()
-//{
-//    testnode=m_client->m_client->node("ns=4;s=APPL.Injection1.sv_rScrewPositionAbs");
-//    //testnode->readAttributes(QOpcUa::NodeAttribute::Value);
-
-//    QOpcUaNode *node=m_client->m_client->node("ns=4;s=APPL.system.sv_iShotCounterAct");
-//    connect(node,&QOpcUaNode::dataChangeOccurred,this,&MainWindow::on_update_data_clicked);
-
-////    m_noid[0]->readAttributes(QOpcUa::NodeAttribute::Value);//更新参数
-////    qDebug()<<"readnode"<<m_noid[0]->valueAttribute().value<float>();
-////    qDebug()<<"value:"<<m_noid[0]->attribute(QOpcUa::NodeAttribute::Value);//读取更新后的参数
-//    //ui->statusBar->showMessage(tr("临时信息!"),5000);
-//}
 
 void MainWindow::set_statusbartext(QString text)
 {

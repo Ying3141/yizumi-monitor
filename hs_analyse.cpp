@@ -29,8 +29,8 @@ void Hs_analyse::receive_client(Hs_OpcUAClient *m_client)
 {
     this->m_client=m_client;
 
-    m_shotcountNode=m_client->m_client->node("ns=4;s=APPL.system.sv_iShotCounterAct");
-    m_shotcountNode->enableMonitoring(QOpcUa::NodeAttribute::Value,0);
+    m_shotcountNode=m_client->m_client->node("ns=4;s=APPL.system.sv_iShotCounterAct");//连接到周期参数，备用
+    m_shotcountNode->enableMonitoring(QOpcUa::NodeAttribute::Value,0);//对周期参数进行监视
 }
 
 void Hs_analyse::node_select()
@@ -70,7 +70,7 @@ void Hs_analyse::update_data()
 {
     connect(m_shotcountNode,&QOpcUaNode::dataChangeOccurred,this,&Hs_analyse::test2);
 
-    testnode=m_client->m_client->node("ns=4;s=APPL.Injection1.sv_InjectProfVis.Profile.Points[1].rPressure");
+    //testnode=m_client->m_client->node("ns=4;s=APPL.Injection1.sv_InjectProfVis.Profile.Points[1].rPressure");
     //testnode=m_parent->analyse->get_m_client()->m_client->node("ns=4;s=APPL.Injection1.sv_rScrewPositionAbs");
     qDebug()<<"works";
 
@@ -124,7 +124,7 @@ void Hs_analyse::update_data()
 //    m_parent->m_table->insertColumn(curCol);
 }
 
-void Hs_analyse::test1()
+void Hs_analyse::test1()//测试写
 {
     testnode=m_parent->analyse->get_m_client()->m_client->node("ns=4;s=APPL.Injection1.sv_InjectProfVis.Profile.Points[1].rPressure");
     QOpcUa::NodeAttribute attribute ;
@@ -135,9 +135,8 @@ void Hs_analyse::test1()
 
 }
 
-void Hs_analyse::test2()
+void Hs_analyse::test2()//测试接受数据变化信号
 {
-    //qDebug()<<testnode->valueAttribute().value<float>();
     qDebug()<<"works2";
     int curCol=m_parent->m_table->columnCount();
     m_parent->m_table->insertColumn(curCol);
