@@ -8,6 +8,7 @@
 #include "hs_node_setting.h"
 #include "hs_thread.h"
 #include "hs_thread2.h"
+#include "windows.h"
 
 class MainWindow;
 
@@ -29,7 +30,7 @@ public:
     void create_analyse();
     void update_data();
     void test1();
-    void test2();
+
 
     QVector<hs_node*>   get_m_nodes();
     Hs_OpcUAClient*     get_m_client();
@@ -40,6 +41,7 @@ signals:
 
 private slots:
     void receive_client(Hs_OpcUAClient*);
+    void test2();
 
 private:
     Ui::Hs_analyse          *ui;
@@ -49,7 +51,9 @@ private:
     Hs_Node_setting         *m_node_setting=nullptr;
     Hs_OpcUAClient          *m_client=nullptr;
     MainWindow              *m_parent=nullptr;
+    QOpcUaNode              *m_shotcountNode;
 
+    QOpcUaNode *testnode;
 
 };
 

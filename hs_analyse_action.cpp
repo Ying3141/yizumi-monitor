@@ -45,8 +45,8 @@ void Hs_Analyse_Action::initialize_slots()
     //connect(ui->node_setting,SIGNAL(clicked()),this,SLOT(on_node_setting_clicked()));
     //connect(ui->create_analyse,SIGNAL(clicked()),this,SLOT(on_create_analyse_clicked()));
     //connect(ui->update_data,SIGNAL(clicked()),this,SLOT(on_update_data_clicked()));
-    connect(ui->test1,SIGNAL(clicked()),this,SLOT(on_test1_clicked()));
-    connect(ui->test2,SIGNAL(clicked()),this,SLOT(on_test2_clicked()));
+    //connect(ui->test1,SIGNAL(clicked()),this,SLOT(on_test1_clicked()));
+    //connect(ui->test2,SIGNAL(clicked()),this,SLOT(on_test2_clicked()));
 }
 
 void Hs_Analyse_Action::on_connect_to_server_clicked()
@@ -81,5 +81,5 @@ void Hs_Analyse_Action::on_test1_clicked()
 
 void Hs_Analyse_Action::on_test2_clicked()
 {
-    m_analyse->test2();
+    //m_analyse->test2();
 }
