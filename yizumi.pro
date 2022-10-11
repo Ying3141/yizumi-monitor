@@ -35,7 +35,8 @@ SOURCES += \
     hs_node.cpp \
     hs_thread.cpp \
     hs_analyse_action.cpp \
-    hs_node_setting.cpp
+    hs_node_setting.cpp \
+    hs_thread2.cpp
 
 
 HEADERS += \
@@ -47,7 +48,8 @@ HEADERS += \
     hs_node.h \
     hs_thread.h \
     hs_analyse_action.h \
-    hs_node_setting.h
+    hs_node_setting.h \
+    hs_thread2.h
 
 
 FORMS += \

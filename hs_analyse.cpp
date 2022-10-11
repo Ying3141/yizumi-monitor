@@ -9,6 +9,7 @@ Hs_analyse::Hs_analyse(QWidget *parent) :
     ui(new Ui::Hs_analyse)
 {
     ui->setupUi(this);
+    this->setAttribute(Qt::WA_TransparentForMouseEvents,true);
     m_parent = static_cast<MainWindow*>(parent);
 }
 
@@ -66,22 +67,40 @@ void Hs_analyse::update_data()
 {
     QOpcUaNode *node;
     QTableWidgetItem *headerItem;
-    for(int i=0;i<m_parent->analyse->get_m_nodes().size();i++)
-    {
-        node=m_parent->analyse->get_m_client()->m_client->node(m_parent->analyse->get_m_nodes().at(0)->get_node_id());
-        //node=analyse->get_m_client()->m_client->node("ns=4;s=APPL.Injection1.sv_rScrewPositionAbs");
+//    for(int i=0;i<m_parent->analyse->get_m_nodes().size();i++)
+//    {
+//        node=m_parent->analyse->get_m_client()->m_client->node(m_parent->analyse->get_m_nodes().at(i)->get_node_id());
+//        //node=analyse->get_m_client()->m_client->node("ns=4;s=APPL.Injection1.sv_rScrewPositionAbs");
 
-        MyThread *thread2=new MyThread(node);
-        thread2->start();
-        //停止线程
-        thread2->quit();
-        //等待线程处理完手头工作
-        thread2->wait();
+//        MyThread *thread2=new MyThread(node);
+//        thread2->start();
+//        //停止线程
+//        thread2->quit();
+//        //等待线程处理完手头工作
+//        thread2->wait();
 
-        qDebug()<<node->valueAttribute().value<float>();
-        headerItem=new QTableWidgetItem(QString::number(node->valueAttribute().value<float>()));
-        m_parent->m_table->setItem(i+1,m_parent->m_table->columnCount()-1,headerItem);
-    }
+//        qDebug()<<node->valueAttribute().value<float>();
+//        headerItem=new QTableWidgetItem(QString::number(node->valueAttribute().value<float>()));
+//        m_parent->m_table->setItem(i+1,m_parent->m_table->columnCount()-1,headerItem);
+//    }
+
+//新建线程，运行线程，停止线程和等待线程
+//    MyThread_2 *thread2=new MyThread_2(node);
+//    thread2->start();
+//    thread2->quit();
+//    thread2->wait();
+
+
+    node=m_parent->analyse->get_m_client()->m_client->node("ns=4;s=APPL.Injection1.sv_rScrewPositionAbs");
+
+    MyThread *thread=new MyThread(node);
+    thread->start();
+    thread->quit();
+    thread->wait();
+
+    qDebug()<<node->valueAttribute().value<float>();
+    headerItem=new QTableWidgetItem(QString::number(node->valueAttribute().value<float>()));
+    m_parent->m_table->setItem(1,m_parent->m_table->columnCount()-1,headerItem);
 
     int curCol=m_parent->m_table->columnCount();
     m_parent->m_table->insertColumn(curCol);
@@ -89,8 +108,13 @@ void Hs_analyse::update_data()
 
 void Hs_analyse::test1()
 {
-    m_node_setting=new Hs_Node_setting(m_nodes);
-    m_node_setting->show();
+    QOpcUaNode*node=m_parent->analyse->get_m_client()->m_client->node("ns=4;s=APPL.Injection1.sv_InjectProfVis.Profile.Points[1].rPressure");
+    QOpcUa::NodeAttribute attribute ;
+    attribute = QOpcUa::NodeAttribute::Value;
+    QVariant var=12;
+    //node->writeAttribute(attribute,QString("ssss"),QOpcUa::Types::String);
+    node->writeAttribute(attribute,var,QOpcUa::Types::Float);
+
 }
 
 void Hs_analyse::test2()

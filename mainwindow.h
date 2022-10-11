@@ -2,19 +2,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QPushButton>
 #include <QLayout>
 #include <QTableWidget>
-#include <QSpacerItem>
 #include <QtOpcUa>
-#include <windows.h>
-#include "hs_connect_to_server.h"
 #include "hs_analyse.h"
-#include "hs_opcuaclient.h"
-#include "hs_node.h"
-#include "hs_collect_setting.h"
-#include "hs_thread.h"
 #include "hs_analyse_action.h"
+
 
 namespace Ui {
 class MainWindow;

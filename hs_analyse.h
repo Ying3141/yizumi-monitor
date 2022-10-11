@@ -6,6 +6,8 @@
 #include "hs_connect_to_server.h"
 #include "hs_collect_setting.h"
 #include "hs_node_setting.h"
+#include "hs_thread.h"
+#include "hs_thread2.h"
 
 class MainWindow;
 
