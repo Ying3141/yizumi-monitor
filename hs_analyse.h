@@ -54,6 +54,7 @@ private:
     Hs_OpcUAClient          *m_client=nullptr;
     MainWindow              *m_parent=nullptr;
     QMap<QOpcUaNode*,int>   m_map;
+    int                     index=0;
 
 //周期计数节点
     QOpcUaNode              *m_shotcountNode;

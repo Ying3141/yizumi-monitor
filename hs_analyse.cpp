@@ -102,10 +102,17 @@ void Hs_analyse::test2()//测试接受数据变化信号
     qDebug()<<node->valueAttribute().value<float>();
 
     //根据发送者，找到他在表格中应该的位置（行数）。
-
-//    QTableWidgetItem *headerItem;
-//    headerItem=new QTableWidgetItem(QString::number(node->valueAttribute().value<float>()));
-//    m_parent->m_table->setItem(i+1,m_parent->m_table->columnCount()-1,headerItem);
+    if(m_map.count(node))
+    {
+        QTableWidgetItem *headerItem;
+        headerItem=new QTableWidgetItem(QString::number(node->valueAttribute().value<float>()));
+        m_parent->m_table->setItem(m_map[node]+1,m_parent->m_table->columnCount()-1,headerItem);
+    }
+    m_map.insert(node,index);
+    QTableWidgetItem *headerItem;
+    headerItem=new QTableWidgetItem(QString::number(node->valueAttribute().value<float>()));
+    m_parent->m_table->setItem(index+1,m_parent->m_table->columnCount()-1,headerItem);
+    index++;
 
 }
 
