@@ -52,7 +52,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="update_data">
+     <widget class="QPushButton" name="start_collecting">
       <property name="text">
        <string>PushButton</string>
       </property>

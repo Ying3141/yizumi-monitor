@@ -26,7 +26,7 @@ void Hs_Analyse_Action::initialize()
     ui->node_select->setFixedSize(60,80);
     ui->node_setting->setFixedSize(60,80);
     ui->create_analyse->setFixedSize(60,80);
-    ui->update_data->setFixedSize(60,80);
+    ui->start_collecting->setFixedSize(60,80);
     ui->test1->setFixedSize(60,80);
     ui->test2->setFixedSize(60,80);
 
@@ -34,19 +34,16 @@ void Hs_Analyse_Action::initialize()
     ui->node_select->setText("节点\n选择");
     ui->node_setting->setText("节点\n设置");
     ui->create_analyse->setText("创建\n分析");
-    ui->update_data->setText("更新\n数据");
+    ui->start_collecting->setText("开始\n采集");
     ui->test1->setText("测试\n1");
     ui->test2->setText("测试\n2");
+
+    ui->start_collecting->setCheckable(true);
 }
 
 void Hs_Analyse_Action::initialize_slots()
 {
-    //connect(ui->connect_to_server,SIGNAL(clicked()),this,SLOT(on_connect_to_server_clicked()));
-    //connect(ui->node_setting,SIGNAL(clicked()),this,SLOT(on_node_setting_clicked()));
-    //connect(ui->create_analyse,SIGNAL(clicked()),this,SLOT(on_create_analyse_clicked()));
-    //connect(ui->update_data,SIGNAL(clicked()),this,SLOT(on_update_data_clicked()));
-    //connect(ui->test1,SIGNAL(clicked()),this,SLOT(on_test1_clicked()));
-    //connect(ui->test2,SIGNAL(clicked()),this,SLOT(on_test2_clicked()));
+
 }
 
 void Hs_Analyse_Action::on_connect_to_server_clicked()
@@ -69,11 +66,6 @@ void Hs_Analyse_Action::on_create_analyse_clicked()
     m_analyse->create_analyse();
 }
 
-void Hs_Analyse_Action::on_update_data_clicked()
-{
-    m_analyse->update_data();
-}
-
 void Hs_Analyse_Action::on_test1_clicked()
 {
     m_analyse->test1();
@@ -81,6 +73,23 @@ void Hs_Analyse_Action::on_test1_clicked()
 
 void Hs_Analyse_Action::on_test2_clicked()
 {
-    //test2是槽
-    //m_analyse->test2();
+
+}
+
+void Hs_Analyse_Action::on_start_collecting_toggled(bool checked)
+{
+
+    if(checked)
+    {
+        ui->start_collecting->setStyleSheet("background-color:rgb(173,255,47)");
+        ui->start_collecting->setText("正在\n采集");
+        //m_analyse->start_collecting();
+    }
+
+    if(!checked)
+    {
+        ui->start_collecting->setStyleSheet("background-color:rgb(255,99,71)");
+        ui->start_collecting->setText("未在\n采集");
+        //m_analyse->stop_collecting();
+    }
 }

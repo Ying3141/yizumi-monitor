@@ -28,11 +28,11 @@ void Hs_collect_setting::on_pushButton_clicked()
 
 void Hs_collect_setting::initialize()
 {
-    for(auto it:*m_nodes)
-    {
-        ui->chinese_names->appendPlainText(it->get_name());
-        ui->node_names->appendPlainText(it->get_node_id());
-    }
+//    for(auto it:*m_nodes)
+//    {
+//        ui->chinese_names->appendPlainText(it->get_name());
+//        ui->node_names->appendPlainText(it->get_node_id());
+//    }
 
     ui->ch_input->setMinimumHeight(20);
     ui->node_input->setMinimumHeight(20);

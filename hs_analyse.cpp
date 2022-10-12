@@ -31,6 +31,7 @@ void Hs_analyse::connect_to_server()
 void Hs_analyse::receive_client(Hs_OpcUAClient *m_client)
 {
     this->m_client=m_client;
+    m_shotcountNode=this->m_client->m_client->node("ns=4;s=APPL.system.sv_iShotCounterAct");//连接到周期参数，备用
 }
 
 void Hs_analyse::node_select()
@@ -73,25 +74,39 @@ void Hs_analyse::create_analyse()
     m_parent->m_DownLay->addWidget(m_parent->m_table);
 }
 
-void Hs_analyse::update_data()
+void Hs_analyse::on_new_mold_detected()
 {
-
-//    m_shotcountNode=m_client->m_client->node("ns=4;s=APPL.system.sv_iShotCounterAct");//连接到周期参数，备用
-//    m_shotcountNode->enableMonitoring(QOpcUa::NodeAttribute::Value,QOpcUaMonitoringParameters(100));//对周期参数进行监视
-//    connect(m_shotcountNode,&QOpcUaNode::dataChangeOccurred,this,&Hs_analyse::test2);
-
     int curCol=m_parent->m_table->columnCount();
     m_parent->m_table->insertColumn(curCol);
 
     qDebug()<<"works";
 
+    if(is_first_mold)
+    {
+        for(int i=0;i<m_nodes.size();i++)
+        {
+            connect(m_nodes[i]->get_m_node(),&QOpcUaNode::attributeRead,this,&Hs_analyse::write_to_table);
+        }
+        is_first_mold=false;
+    }
+
     for(int i=0;i<m_nodes.size();i++)
     {
-        m_nodes[i]->get_m_node()->disconnect();
-        connect(m_nodes[i]->get_m_node(),&QOpcUaNode::attributeRead,this,&Hs_analyse::test2);
         m_nodes[i]->get_m_node()->readAttributes(QOpcUa::NodeAttribute::Value);
     }
 
+}
+
+void Hs_analyse::start_collecting()
+{
+    m_shotcountNode->enableMonitoring(QOpcUa::NodeAttribute::Value,QOpcUaMonitoringParameters());//对周期参数进行监视
+    connect(m_shotcountNode,&QOpcUaNode::dataChangeOccurred,this,&Hs_analyse::on_new_mold_detected);
+}
+
+void Hs_analyse::stop_collecting()
+{
+    m_shotcountNode->disableMonitoring(QOpcUa::NodeAttribute::Value);
+    m_shotcountNode->disconnect();
 }
 
 void Hs_analyse::test1()//测试写
@@ -105,26 +120,26 @@ void Hs_analyse::test1()//测试写
 
 }
 
-void Hs_analyse::test2()
+void Hs_analyse::write_to_table()
 {
     qDebug()<<"works2";
-    QOpcUaNode *node=(QOpcUaNode*)sender();
+    QOpcUaNode *node=dynamic_cast<QOpcUaNode*>(sender());
     qDebug()<<node->valueAttribute().value<float>();
 
+    QTableWidgetItem *headerItem;
     //根据发送者，找到他在表格中应该的位置（行数）。
     if(m_map.count(node))
     {
-        QTableWidgetItem *headerItem;
-        headerItem=new QTableWidgetItem(QString::number(node->valueAttribute().value<float>()));
+        headerItem=new QTableWidgetItem(QString::number(node->valueAttribute().value<double>()));
         m_parent->m_table->setItem(m_map[node]+1,m_parent->m_table->columnCount()-1,headerItem);
     }
-
-    m_map.insert(node,index);
-    QTableWidgetItem *headerItem;
-    headerItem=new QTableWidgetItem(QString::number(node->valueAttribute().value<float>()));
-    m_parent->m_table->setItem(index+1,m_parent->m_table->columnCount()-1,headerItem);
-    index++;
-
+    else
+    {
+        m_map.insert(node,index);
+        headerItem=new QTableWidgetItem(QString::number(node->valueAttribute().value<double>()));
+        m_parent->m_table->setItem(index+1,m_parent->m_table->columnCount()-1,headerItem);
+        index++;
+    }
 }
 
 QVector<hs_node*> Hs_analyse::get_m_nodes()

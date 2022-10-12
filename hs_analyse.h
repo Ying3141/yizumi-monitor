@@ -29,7 +29,8 @@ public:
     void node_select();
     void node_setting();
     void create_analyse();
-    void update_data();
+    void start_collecting();
+    void stop_collecting();
     void test1();
 
 
@@ -43,7 +44,8 @@ signals:
 private slots:
     //接受来自Hs_connect_to_server类的服务器
     void receive_client(Hs_OpcUAClient*);
-    void test2();
+    void write_to_table();
+    void on_new_mold_detected();
 
 private:
     Ui::Hs_analyse          *ui;
@@ -55,6 +57,7 @@ private:
     MainWindow              *m_parent=nullptr;
     QMap<QOpcUaNode*,int>   m_map;
     int                     index=0;
+    bool                    is_first_mold=true;
 
 //周期计数节点
     QOpcUaNode              *m_shotcountNode;

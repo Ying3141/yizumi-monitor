@@ -35,10 +35,9 @@ private slots:
     void on_node_select_clicked();
     void on_node_setting_clicked();
     void on_create_analyse_clicked();
-    void on_update_data_clicked();
     void on_test1_clicked();
     void on_test2_clicked();
-
+    void on_start_collecting_toggled(bool checked);
 };
 
 #endif // HS_ANALYSE_ACTION_H
