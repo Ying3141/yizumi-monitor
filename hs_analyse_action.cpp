@@ -83,13 +83,13 @@ void Hs_Analyse_Action::on_start_collecting_toggled(bool checked)
     {
         ui->start_collecting->setStyleSheet("background-color:rgb(173,255,47)");
         ui->start_collecting->setText("正在\n采集");
-        //m_analyse->start_collecting();
+        m_analyse->start_collecting();
     }
 
     if(!checked)
     {
         ui->start_collecting->setStyleSheet("background-color:rgb(255,99,71)");
         ui->start_collecting->setText("未在\n采集");
-        //m_analyse->stop_collecting();
+        m_analyse->stop_collecting();
     }
 }

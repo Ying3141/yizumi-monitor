@@ -31,7 +31,6 @@ void Hs_analyse::connect_to_server()
 void Hs_analyse::receive_client(Hs_OpcUAClient *m_client)
 {
     this->m_client=m_client;
-    m_shotcountNode=this->m_client->m_client->node("ns=4;s=APPL.system.sv_iShotCounterAct");//连接到周期参数，备用
 }
 
 void Hs_analyse::node_select()
@@ -41,6 +40,10 @@ void Hs_analyse::node_select()
         m_node_select=new Hs_collect_setting(m_client,m_nodes);
     }
     m_node_select->show();
+
+    m_shotcountNode=this->m_client->m_client->node("ns=4;s=APPL.system.sv_iShotCounterAct");
+    m_shotcountNode->enableMonitoring(QOpcUa::NodeAttribute::Value,QOpcUaMonitoringParameters());//对周期参数进行监视
+
     is_first_mold=true;
 }
 
@@ -101,13 +104,11 @@ void Hs_analyse::on_new_mold_detected()
 
 void Hs_analyse::start_collecting()
 {
-    m_shotcountNode->enableMonitoring(QOpcUa::NodeAttribute::Value,QOpcUaMonitoringParameters());//对周期参数进行监视
     connect(m_shotcountNode,&QOpcUaNode::dataChangeOccurred,this,&Hs_analyse::on_new_mold_detected);
 }
 
 void Hs_analyse::stop_collecting()
 {
-    m_shotcountNode->disableMonitoring(QOpcUa::NodeAttribute::Value);
     m_shotcountNode->disconnect();
 }
 
@@ -136,13 +137,13 @@ void Hs_analyse::write_to_table()
     if(m_map.count(node))
     {
         headerItem=new QTableWidgetItem(QString::number(node->valueAttribute().value<double>()));
-        m_parent->m_table->setItem(m_map[node]+1,m_parent->m_table->columnCount()-1,headerItem);
+        m_parent->m_table->setItem(m_map[node]+1,m_parent->m_table->columnCount()-2,headerItem);
     }
     else
     {
         m_map.insert(node,index);
         headerItem=new QTableWidgetItem(QString::number(node->valueAttribute().value<double>()));
-        m_parent->m_table->setItem(index+1,m_parent->m_table->columnCount()-1,headerItem);
+        m_parent->m_table->setItem(index+1,m_parent->m_table->columnCount()-2,headerItem);
         index++;
     }
 }
