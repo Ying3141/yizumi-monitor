@@ -6,6 +6,7 @@
 
 QT       += core gui
 QT       += opcua
+QT       += sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -36,7 +37,8 @@ SOURCES += \
     hs_thread.cpp \
     hs_analyse_action.cpp \
     hs_node_setting.cpp \
-    hs_thread2.cpp
+    hs_thread2.cpp \
+    hs_database_test.cpp
 
 
 HEADERS += \
@@ -49,7 +51,8 @@ HEADERS += \
     hs_thread.h \
     hs_analyse_action.h \
     hs_node_setting.h \
-    hs_thread2.h
+    hs_thread2.h \
+    hs_database_test.h
 
 
 FORMS += \
@@ -59,7 +62,8 @@ FORMS += \
     hs_collect_setting.ui \
     hs_analyse_action.ui \
     hs_node_setting.ui \
-    hs_analyse.ui
+    hs_analyse.ui \
+    hs_database_test.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

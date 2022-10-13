@@ -109,7 +109,7 @@ void Hs_analyse::stop_collecting()
     m_shotcountNode->disconnect();
 }
 
-void Hs_analyse::test1()//测试写
+void Hs_analyse::write_test()//测试写
 {
     testnode=m_parent->analyse->get_m_client()->m_client->node("ns=4;s=APPL.Injection1.sv_InjectProfVis.Profile.Points[1].rPressure");
     QOpcUa::NodeAttribute attribute ;
@@ -117,7 +117,12 @@ void Hs_analyse::test1()//测试写
     QVariant var=130;
     testnode->writeAttribute(attribute,var,QOpcUa::Types::Float);
     qDebug()<<"works1";
+}
 
+void Hs_analyse::test1()
+{
+    test_DB=new hs_DataBase_test();
+    test_DB->show();
 }
 
 void Hs_analyse::write_to_table()

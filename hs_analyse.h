@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QTableWidget>
+#include "hs_database_test.h"
 #include "hs_connect_to_server.h"
 #include "hs_collect_setting.h"
 #include "hs_node_setting.h"
@@ -31,6 +32,7 @@ public:
     void create_analyse();
     void start_collecting();
     void stop_collecting();
+    void write_test();
     void test1();
 
 
@@ -65,6 +67,7 @@ private:
     QOpcUaNode              *testnode;
     QOpcUaNode              *testnode2;
     MyThread                *newthread=nullptr;
+    hs_DataBase_test        *test_DB;
 
 };
 
