@@ -41,6 +41,7 @@ void Hs_analyse::node_select()
         m_node_select=new Hs_collect_setting(m_client,m_nodes);
     }
     m_node_select->show();
+    is_first_mold=true;
 }
 
 void Hs_analyse::node_setting()
@@ -85,6 +86,7 @@ void Hs_analyse::on_new_mold_detected()
     {
         for(int i=0;i<m_nodes.size();i++)
         {
+            m_nodes[i]->get_m_node()->disconnect();
             connect(m_nodes[i]->get_m_node(),&QOpcUaNode::attributeRead,this,&Hs_analyse::write_to_table);
         }
         is_first_mold=false;
@@ -116,7 +118,6 @@ void Hs_analyse::write_test()//测试写
     attribute = QOpcUa::NodeAttribute::Value;
     QVariant var=130;
     testnode->writeAttribute(attribute,var,QOpcUa::Types::Float);
-    qDebug()<<"works1";
 }
 
 void Hs_analyse::test1()
@@ -127,7 +128,6 @@ void Hs_analyse::test1()
 
 void Hs_analyse::write_to_table()
 {
-    qDebug()<<"works2";
     QOpcUaNode *node=dynamic_cast<QOpcUaNode*>(sender());
     qDebug()<<node->valueAttribute().value<float>();
 

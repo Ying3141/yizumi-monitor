@@ -20,7 +20,7 @@ public:
 public slots:
 
     void SLOT_endpointsRequestFinished (QVector<QOpcUa::QEndpointDescription> endpoints , QOpcUa::UaStatusCode statusCode);
-    void SLOT_attributeRead ( QOpcUa::NodeAttributes attributes );
+//    void SLOT_attributeRead ( QOpcUa::NodeAttributes attributes );
     void SLOT_stateChanged (QOpcUaClient::ClientState state );
 
 signals:
@@ -28,9 +28,9 @@ signals:
 
 public:
     Ui::Hs_OpcUAClient *ui;
-    QString         m_sUrl;
-    QOpcUaProvider  *m_provider;
-    QOpcUaClient    *m_client;
+    QString         m_sUrl;         //机台地址
+    QOpcUaProvider  *m_provider;    //初始化客户端中间量
+    QOpcUaClient    *m_client;      //访问者作为客户端
     QOpcUaNode      *m_node;
 
 };
