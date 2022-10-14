@@ -39,7 +39,9 @@ SOURCES += \
     hs_node_setting.cpp \
     hs_thread2.cpp \
     hs_database_test.cpp \
-    hs_database.cpp
+    hs_database.cpp \
+    hs_corelatecof.cpp \
+    hs_corelatecoefmodel.cpp
 
 
 HEADERS += \
@@ -54,7 +56,9 @@ HEADERS += \
     hs_node_setting.h \
     hs_thread2.h \
     hs_database_test.h \
-    hs_database.h
+    hs_database.h \
+    hs_corelatecof.h \
+    hs_corelatecoefmodel.h
 
 
 FORMS += \
@@ -66,7 +70,9 @@ FORMS += \
     hs_node_setting.ui \
     hs_analyse.ui \
     hs_database_test.ui \
-    hs_database.ui
+    hs_database.ui \
+    hs_corelatecof.ui \
+    hs_corelatecoefmodel.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -73,7 +73,7 @@ void Hs_Analyse_Action::on_test1_clicked()
 
 void Hs_Analyse_Action::on_test2_clicked()
 {
-
+    m_analyse->test2();
 }
 
 void Hs_Analyse_Action::on_start_collecting_toggled(bool checked)

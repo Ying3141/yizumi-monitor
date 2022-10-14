@@ -7,8 +7,7 @@
 #include "hs_connect_to_server.h"
 #include "hs_collect_setting.h"
 #include "hs_node_setting.h"
-#include "hs_thread.h"
-#include "hs_thread2.h"
+#include "hs_corelatecof.h"
 #include "windows.h"
 #include <QMap>
 
@@ -35,6 +34,7 @@ public:
     void write_test();
     void create_database_table();
     void test1();
+    void test2();
 
 
     QVector<hs_node*>   get_m_nodes();
@@ -53,10 +53,12 @@ private:
     Hs_collect_setting      *m_node_select=nullptr;
     Hs_Node_setting         *m_node_setting=nullptr;
     Hs_OpcUAClient          *m_client=nullptr;
+    Hs_CorelateCOF          *m_coef=nullptr;
     MainWindow              *m_parent=nullptr;
     QMap<QOpcUaNode*,int>   m_map;
     int                     index=0;
     bool                    is_first_mold=true;
+    QTableWidget            *m_table=nullptr;
 //当前数据库工作表格名
     QString                 m_cur_active_DBTable;
 //周期计数节点

@@ -23,8 +23,8 @@ public:
 
 //开放主界面UI权限，使子界面可以进行调用
     Ui::MainWindow      *ui;
-    QHBoxLayout         *m_DownLay;
-    QTableWidget        *m_table=nullptr;
+    QHBoxLayout         *m_DownLeftLay=nullptr;
+    QHBoxLayout         *m_DownRightLay=nullptr;
     Hs_analyse          *analyse=nullptr;
 
     //初始化TabWidget，
@@ -42,7 +42,7 @@ private slots:
 private:
 
     QTabWidget          *m_TabWidget;
-    QGridLayout         *m_mainVLay;
+    QGridLayout         *m_mainGLay;
     QHBoxLayout         *m_UpLay;
 
 

@@ -37,11 +37,13 @@ void MainWindow::initializeTab()
 
 void MainWindow::initializeUI()
 {
-    m_mainVLay=new QGridLayout (ui->centralWidget);
+    m_mainGLay=new QGridLayout (ui->centralWidget);
     m_UpLay=new QHBoxLayout();
-    m_DownLay=new QHBoxLayout();
-    m_mainVLay->addLayout(m_UpLay,0,0,2,10);
-    m_mainVLay->addLayout(m_DownLay,2,0,8,10);
+    m_DownLeftLay=new QHBoxLayout();
+    m_DownRightLay=new QHBoxLayout();
+    m_mainGLay->addLayout(m_UpLay,0,0,2,10);
+    m_mainGLay->addLayout(m_DownLeftLay,2,0,8,8);
+    m_mainGLay->addLayout(m_DownRightLay,2,8,8,2);
     m_UpLay->addWidget(m_TabWidget);
 }
 

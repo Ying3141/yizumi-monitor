@@ -35,11 +35,11 @@ void Hs_analyse::receive_client(Hs_OpcUAClient *m_client)
 
 void Hs_analyse::node_select()//打开节点添加窗口，并初始化对机台周期参数的node，用于后续监控一模结束
 {
-    if(!m_client)
-    {
-        QMessageBox::warning(this,"错误","未连接服务器",QMessageBox::Ok,QMessageBox::NoButton);
-        return;
-    }
+//    if(!m_client)
+//    {
+//        QMessageBox::warning(this,"错误","未连接服务器",QMessageBox::Ok,QMessageBox::NoButton);
+//        return;
+//    }
 
     if(!m_node_select)
     {
@@ -48,8 +48,8 @@ void Hs_analyse::node_select()//打开节点添加窗口，并初始化对机台
 
     m_node_select->show();
 
-    m_shotcountNode=this->m_client->m_client->node("ns=4;s=APPL.system.sv_iShotCounterAct");
-    m_shotcountNode->enableMonitoring(QOpcUa::NodeAttribute::Value,QOpcUaMonitoringParameters());//对周期参数进行监视
+//    m_shotcountNode=this->m_client->m_client->node("ns=4;s=APPL.system.sv_iShotCounterAct");
+//    m_shotcountNode->enableMonitoring(QOpcUa::NodeAttribute::Value,QOpcUaMonitoringParameters());//对周期参数进行监视
 
     is_first_mold=true;
 
@@ -75,43 +75,43 @@ void Hs_analyse::node_setting()//打开节点设置窗口
 
 void Hs_analyse::create_analyse()//在主界面的下半部分创建一个表格
 {
-    if(!m_client)
+//    if(!m_client)
+//    {
+//        QMessageBox::warning(this,"错误","未连接服务器",QMessageBox::Ok,QMessageBox::NoButton);
+//        return;
+//    }
+
+//    if(!m_node_select)
+//    {
+//        QMessageBox::warning(this,"错误","未选择节点",QMessageBox::Ok,QMessageBox::NoButton);
+//        return;
+//    }
+
+    if(m_table)
     {
-        QMessageBox::warning(this,"错误","未连接服务器",QMessageBox::Ok,QMessageBox::NoButton);
-        return;
+        m_parent->m_DownLeftLay->removeWidget(m_table);
     }
 
-    if(!m_node_select)
-    {
-        QMessageBox::warning(this,"错误","未选择节点",QMessageBox::Ok,QMessageBox::NoButton);
-        return;
-    }
-
-    if(m_parent->m_table)
-    {
-        m_parent->m_DownLay->removeWidget(m_parent->m_table);
-    }
-
-    m_parent->m_table=new QTableWidget(m_parent->analyse->get_m_nodes().size()+1,1,this);
+    m_table=new QTableWidget(m_nodes.size()+1,1,this);
 
     QTableWidgetItem *headerItem;
     headerItem=new QTableWidgetItem("产品重量");
-    m_parent->m_table->setVerticalHeaderItem(0,headerItem);
+    m_table->setVerticalHeaderItem(0,headerItem);
 
-    for(int i=0;i<m_parent->analyse->get_m_nodes().size();i++)
+    for(int i=0;i<m_nodes.size();i++)
     {
-        headerItem=new QTableWidgetItem(m_parent->analyse->get_m_nodes().at(i)->get_name());
-        m_parent->m_table->setVerticalHeaderItem(i+1,headerItem);
+        headerItem=new QTableWidgetItem(m_nodes.at(i)->get_name());
+        m_table->setVerticalHeaderItem(i+1,headerItem);
     }
-    m_parent->m_DownLay->addWidget(m_parent->m_table);
+    m_parent->m_DownLeftLay->addWidget(m_table);
 
     create_database_table();
 }
 
 void Hs_analyse::on_new_mold_detected()
 {
-    int curCol=m_parent->m_table->columnCount();
-    m_parent->m_table->insertColumn(curCol);
+    int curCol=m_table->columnCount();
+    m_table->insertColumn(curCol);
 
     qDebug()<<"on_new_mold_detected works";
 
@@ -161,7 +161,6 @@ void Hs_analyse::create_database_table()
     QString current_date =current_date_time.toString("yyyy_MM_dd_hh_mm_ss");
     m_cur_active_DBTable="yizumi_"+current_date;
     m_DB->create_new_table("create table "+m_cur_active_DBTable+"(MoldCount int primary key)");
-    //m_DB->create_new_table("create table yizumi(MoldCount int primary key)");
 
     //根据节点情况在数据库中添加列
     QString add_col;
@@ -174,7 +173,16 @@ void Hs_analyse::create_database_table()
 
 void Hs_analyse::test1()
 {
+    if(!m_coef)
+    {
+        m_coef=new Hs_CorelateCOF(m_nodes,m_table);
+        m_parent->m_DownRightLay->addWidget(m_coef);
+    }
+}
 
+void Hs_analyse::test2()
+{
+    m_coef->add_display_part();
 }
 
 void Hs_analyse::write_to_table()
@@ -188,24 +196,19 @@ void Hs_analyse::write_to_table()
     if(m_map.count(node))
     {
         headerItem=new QTableWidgetItem(QString::number(node->valueAttribute().value<double>()));
-        m_parent->m_table->setItem(m_map[node]+1,m_parent->m_table->columnCount()-2,headerItem);
+        m_table->setItem(m_map[node]+1,m_table->columnCount()-2,headerItem);
     }
     else
     {
         m_map.insert(node,index);
         headerItem=new QTableWidgetItem(QString::number(node->valueAttribute().value<double>()));
-        m_parent->m_table->setItem(index+1,m_parent->m_table->columnCount()-2,headerItem);
+        m_table->setItem(index+1,m_table->columnCount()-2,headerItem);
         index++;
     }
     //根据节点的下标在数据库中找到对应的列,在数据库添加记录
     m_DB->add_record(m_cur_active_DBTable,m_map[node]+1,node->valueAttribute().value<double>());
 }
 
-
-QVector<hs_node*> Hs_analyse::get_m_nodes()
-{
-    return m_nodes;
-}
 
 Hs_OpcUAClient* Hs_analyse::get_m_client()
 {
