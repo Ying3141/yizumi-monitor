@@ -25,11 +25,17 @@ public:
 
     void add_display_part();//添加一组相关系数展示框
 
+private slots:
+    void SLOT_update_COEF(int);
+
 private:
     Ui::Hs_CorelateCOF *ui;
     QSpacerItem *spacer_item = nullptr;
     QVector<Hs_CoRelateCOEFModel*> m_models;
     QVector<hs_node*>   *m_nodes;
+    QTableWidget        *m_table;
+    QVector<double>     m_data_series_A;
+    QVector<double>     m_data_series_B;
 };
 
 #endif // HS_CORELATECOF_H

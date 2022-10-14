@@ -22,3 +22,13 @@ void Hs_CoRelateCOEFModel::initialize()
         ui->paraeter_select->addItem(it->get_name());
     }
 }
+
+void Hs_CoRelateCOEFModel::on_paraeter_select_currentIndexChanged(int index)
+{
+    index_changed(index);
+}
+
+void Hs_CoRelateCOEFModel::setLineedit(double var)
+{
+    ui->COEF_show->setText(QString::number(var,'g', 2));
+}

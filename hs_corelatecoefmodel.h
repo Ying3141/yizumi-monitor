@@ -15,6 +15,7 @@ class Hs_CoRelateCOEFModel : public QWidget
 public:
     explicit Hs_CoRelateCOEFModel(QVector<hs_node*>*nodes,QWidget *parent = nullptr);
     ~Hs_CoRelateCOEFModel();
+    void setLineedit(double);
 
 private:
     void initialize();
@@ -22,6 +23,11 @@ private:
 private:
     Ui::Hs_CoRelateCOEFModel *ui;
     QVector<hs_node*>   *m_nodes;
+
+signals:
+    void index_changed(int);
+private slots:
+    void on_paraeter_select_currentIndexChanged(int index);
 };
 
 #endif // HS_CORELATECOEFMODEL_H
