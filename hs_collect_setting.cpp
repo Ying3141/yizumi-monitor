@@ -28,12 +28,6 @@ void Hs_collect_setting::on_pushButton_clicked()
 
 void Hs_collect_setting::initialize()
 {
-//    for(auto it:*m_nodes)
-//    {
-//        ui->chinese_names->appendPlainText(it->get_name());
-//        ui->node_names->appendPlainText(it->get_node_id());
-//    }
-
     ui->ch_input->setMinimumHeight(20);
     ui->node_input->setMinimumHeight(20);
     ui->chinese_name->setMinimumHeight(10);
@@ -51,4 +45,10 @@ void Hs_collect_setting::initialize()
 
     setLayout(m_GridLayout);
 
+}
+
+void Hs_collect_setting::closeEvent(QCloseEvent * event)
+{
+    ui_closed();
+    qDebug() << "closeEvent ";
 }

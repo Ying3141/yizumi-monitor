@@ -21,7 +21,7 @@ void hs_DataBase_test::on_pushButton_clicked()
         return;
     }
     DB=QSqlDatabase::addDatabase("QSQLITE");
-    DB.setDatabaseName(aFile);
+    DB.setDatabaseName("test..db3");
     if(!DB.open())
     {
         QMessageBox::warning(this,"错误","Fail",QMessageBox::Ok,QMessageBox::NoButton);

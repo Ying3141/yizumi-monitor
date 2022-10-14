@@ -38,7 +38,8 @@ SOURCES += \
     hs_analyse_action.cpp \
     hs_node_setting.cpp \
     hs_thread2.cpp \
-    hs_database_test.cpp
+    hs_database_test.cpp \
+    hs_database.cpp
 
 
 HEADERS += \
@@ -52,7 +53,8 @@ HEADERS += \
     hs_analyse_action.h \
     hs_node_setting.h \
     hs_thread2.h \
-    hs_database_test.h
+    hs_database_test.h \
+    hs_database.h
 
 
 FORMS += \
@@ -63,7 +65,8 @@ FORMS += \
     hs_analyse_action.ui \
     hs_node_setting.ui \
     hs_analyse.ui \
-    hs_database_test.ui
+    hs_database_test.ui \
+    hs_database.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -5,6 +5,7 @@
 #include <QLayout>
 #include "hs_opcuaclient.h"
 #include "hs_node.h"
+#include <QCloseEvent>
 
 //节点添加类，输入节点中文意义和node名，添加节点到Hs_node节点类。
 namespace Ui {
@@ -20,8 +21,14 @@ public:
     ~Hs_collect_setting();
     void initialize();
 
+protected :
+    void closeEvent(QCloseEvent *event);
+
 private slots:
     void on_pushButton_clicked();
+
+signals:
+    void ui_closed();
 
 private:
     Ui::Hs_collect_setting *ui;

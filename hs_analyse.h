@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QTableWidget>
-#include "hs_database_test.h"
+#include "hs_database.h"
 #include "hs_connect_to_server.h"
 #include "hs_collect_setting.h"
 #include "hs_node_setting.h"
@@ -33,15 +33,12 @@ public:
     void start_collecting();
     void stop_collecting();
     void write_test();
+    void create_database_table();
     void test1();
 
 
     QVector<hs_node*>   get_m_nodes();
     Hs_OpcUAClient*     get_m_client();
-
-signals:
-    //void create_analyse();
-    //void update_data();
 
 private slots:
     //接受来自Hs_connect_to_server类的服务器
@@ -60,14 +57,14 @@ private:
     QMap<QOpcUaNode*,int>   m_map;
     int                     index=0;
     bool                    is_first_mold=true;
-
+//当前数据库工作表格名
+    QString                 m_cur_active_DBTable;
 //周期计数节点
-    QOpcUaNode              *m_shotcountNode;
+    QOpcUaNode              *m_shotcountNode=nullptr;
+//SQLite数据库
+    Hs_Database             *m_DB=nullptr;
 //测试节点
-    QOpcUaNode              *testnode;
-    QOpcUaNode              *testnode2;
-    MyThread                *newthread=nullptr;
-    hs_DataBase_test        *test_DB;
+    QOpcUaNode              *testnode=nullptr;
 
 };
 

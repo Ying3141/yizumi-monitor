@@ -18,7 +18,7 @@ Hs_analyse::~Hs_analyse()
     delete ui;
 }
 
-void Hs_analyse::connect_to_server()
+void Hs_analyse::connect_to_server()//打开链接机台窗口
 {
     if(!m_connect_to_server)
     {
@@ -33,22 +33,38 @@ void Hs_analyse::receive_client(Hs_OpcUAClient *m_client)
     this->m_client=m_client;
 }
 
-void Hs_analyse::node_select()
+void Hs_analyse::node_select()//打开节点添加窗口，并初始化对机台周期参数的node，用于后续监控一模结束
 {
+    if(!m_client)
+    {
+        QMessageBox::warning(this,"错误","未连接服务器",QMessageBox::Ok,QMessageBox::NoButton);
+        return;
+    }
+
     if(!m_node_select)
     {
         m_node_select=new Hs_collect_setting(m_client,m_nodes);
     }
+
     m_node_select->show();
 
     m_shotcountNode=this->m_client->m_client->node("ns=4;s=APPL.system.sv_iShotCounterAct");
     m_shotcountNode->enableMonitoring(QOpcUa::NodeAttribute::Value,QOpcUaMonitoringParameters());//对周期参数进行监视
 
     is_first_mold=true;
+
+    //关闭节点添加窗口时，自动创建表格
+    connect(m_node_select,&Hs_collect_setting::ui_closed,this,&Hs_analyse::create_analyse);
 }
 
-void Hs_analyse::node_setting()
+void Hs_analyse::node_setting()//打开节点设置窗口
 {
+    if(!m_node_select)
+    {
+        QMessageBox::warning(this,"错误","未选择节点",QMessageBox::Ok,QMessageBox::NoButton);
+        return;
+    }
+
     if(!m_node_setting)
     {
         m_node_setting=new Hs_Node_setting(m_nodes);
@@ -57,8 +73,20 @@ void Hs_analyse::node_setting()
     m_node_setting->show();
 }
 
-void Hs_analyse::create_analyse()
+void Hs_analyse::create_analyse()//在主界面的下半部分创建一个表格
 {
+    if(!m_client)
+    {
+        QMessageBox::warning(this,"错误","未连接服务器",QMessageBox::Ok,QMessageBox::NoButton);
+        return;
+    }
+
+    if(!m_node_select)
+    {
+        QMessageBox::warning(this,"错误","未选择节点",QMessageBox::Ok,QMessageBox::NoButton);
+        return;
+    }
+
     if(m_parent->m_table)
     {
         m_parent->m_DownLay->removeWidget(m_parent->m_table);
@@ -76,6 +104,8 @@ void Hs_analyse::create_analyse()
         m_parent->m_table->setVerticalHeaderItem(i+1,headerItem);
     }
     m_parent->m_DownLay->addWidget(m_parent->m_table);
+
+    create_database_table();
 }
 
 void Hs_analyse::on_new_mold_detected()
@@ -83,9 +113,9 @@ void Hs_analyse::on_new_mold_detected()
     int curCol=m_parent->m_table->columnCount();
     m_parent->m_table->insertColumn(curCol);
 
-    qDebug()<<"works";
+    qDebug()<<"on_new_mold_detected works";
 
-    if(is_first_mold)
+    if(is_first_mold)//在节点初始化时/第一模是初始化所有connect链接
     {
         for(int i=0;i<m_nodes.size();i++)
         {
@@ -95,7 +125,7 @@ void Hs_analyse::on_new_mold_detected()
         is_first_mold=false;
     }
 
-    for(int i=0;i<m_nodes.size();i++)
+    for(int i=0;i<m_nodes.size();i++)//对所有的node节点进行一次读操作
     {
         m_nodes[i]->get_m_node()->readAttributes(QOpcUa::NodeAttribute::Value);
     }
@@ -121,19 +151,40 @@ void Hs_analyse::write_test()//测试写
     testnode->writeAttribute(attribute,var,QOpcUa::Types::Float);
 }
 
+void Hs_analyse::create_database_table()
+{
+    //创建数据库
+    m_DB=new Hs_Database("C:/Users/Ying/Desktop/yizumi..db3");
+
+    //根据当前时间命名表格
+    QDateTime current_date_time =QDateTime::currentDateTime();
+    QString current_date =current_date_time.toString("yyyy_MM_dd_hh_mm_ss");
+    m_cur_active_DBTable="yizumi_"+current_date;
+    m_DB->create_new_table("create table "+m_cur_active_DBTable+"(MoldCount int primary key)");
+    //m_DB->create_new_table("create table yizumi(MoldCount int primary key)");
+
+    //根据节点情况在数据库中添加列
+    QString add_col;
+    for(int i=0;i<m_nodes.size();i++)
+    {
+        add_col="alter table "+m_cur_active_DBTable+" add column "+m_nodes[i]->get_name()+" double;";
+        m_DB->add_column(add_col);
+    }
+}
+
 void Hs_analyse::test1()
 {
-    test_DB=new hs_DataBase_test();
-    test_DB->show();
+
 }
 
 void Hs_analyse::write_to_table()
 {
     QOpcUaNode *node=dynamic_cast<QOpcUaNode*>(sender());
     qDebug()<<node->valueAttribute().value<float>();
-
     QTableWidgetItem *headerItem;
     //根据发送者，找到他在表格中应该的位置（行数）。
+    //由于触发write_to_table函数的顺序就是m_nodes容器内nodeid的顺序，可以使用map记录nodeid名和下标的关系
+    //利用nodeid可以找到对应的下标
     if(m_map.count(node))
     {
         headerItem=new QTableWidgetItem(QString::number(node->valueAttribute().value<double>()));
@@ -146,7 +197,10 @@ void Hs_analyse::write_to_table()
         m_parent->m_table->setItem(index+1,m_parent->m_table->columnCount()-2,headerItem);
         index++;
     }
+    //根据节点的下标在数据库中找到对应的列,在数据库添加记录
+    m_DB->add_record(m_cur_active_DBTable,m_map[node]+1,node->valueAttribute().value<double>());
 }
+
 
 QVector<hs_node*> Hs_analyse::get_m_nodes()
 {
