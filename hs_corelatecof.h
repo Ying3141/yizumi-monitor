@@ -25,6 +25,8 @@ public:
 
     void add_display_part();//添加一组相关系数展示框
 
+    void update_combobox();
+
 private slots:
     void SLOT_update_COEF(int);
 

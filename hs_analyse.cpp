@@ -53,8 +53,9 @@ void Hs_analyse::node_select()//打开节点添加窗口，并初始化对机台
 
     is_first_mold=true;
 
-    //关闭节点添加窗口时，自动创建表格
+    //关闭节点添加窗口时，自动创建表格，自动添加分析
     connect(m_node_select,&Hs_collect_setting::ui_closed,this,&Hs_analyse::create_analyse);
+    connect(m_node_select,&Hs_collect_setting::ui_closed,this,&Hs_analyse::test1);
 }
 
 void Hs_analyse::node_setting()//打开节点设置窗口
@@ -89,7 +90,14 @@ void Hs_analyse::create_analyse()//在主界面的下半部分创建一个表格
 
     if(m_table)
     {
-        m_parent->m_DownLeftLay->removeWidget(m_table);
+        if(QMessageBox::question(this,"创建新表格","创建新表将删除旧表所有数据，确定吗？")==QMessageBox::Yes)
+        {
+            m_parent->m_DownLeftLay->removeWidget(m_table);
+        }
+        else
+        {
+            return;
+        }
     }
 
     m_table=new QTableWidget(m_nodes.size()+1,1,this);
@@ -177,12 +185,18 @@ void Hs_analyse::test1()
     {
         m_coef=new Hs_CorelateCOF(m_nodes,m_table);
         m_parent->m_DownRightLay->addWidget(m_coef);
+        m_coef->add_display_part();
     }
+    else
+    {
+        m_coef->update_combobox();
+    }
+
 }
 
 void Hs_analyse::test2()
 {
-    m_coef->add_display_part();
+
 }
 
 void Hs_analyse::write_to_table()

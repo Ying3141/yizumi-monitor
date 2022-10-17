@@ -16,8 +16,6 @@ public:
     explicit Hs_CoRelateCOEFModel(QVector<hs_node*>*nodes,QWidget *parent = nullptr);
     ~Hs_CoRelateCOEFModel();
     void setLineedit(double);
-
-private:
     void initialize();
 
 private:
