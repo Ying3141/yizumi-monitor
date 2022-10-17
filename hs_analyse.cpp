@@ -172,17 +172,19 @@ void Hs_analyse::create_database_table()
 }
 
 void Hs_analyse::test1()
-{
+{   
     if(!m_coef)
     {
         m_coef=new Hs_CorelateCOF(m_nodes,m_table);
         m_parent->m_DownRightLay->addWidget(m_coef);
     }
+    m_coef->add_display_part();
 }
 
 void Hs_analyse::test2()
 {
-    m_coef->add_display_part();
+    int curCol=m_table->columnCount();
+    m_table->insertColumn(curCol);
 }
 
 void Hs_analyse::write_to_table()

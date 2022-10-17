@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     initializeTab();
     initializeUI();
     initslots();
+    setWindowTitle("采集分析系统");
     this->resize(1280,720);
 }
 
@@ -31,7 +32,7 @@ void MainWindow::initializeTab()
     analyse=new Hs_analyse(this);
     analyse_action=new Hs_Analyse_Action();
     analyse_action->bindWidget(analyse);
-    m_TabWidget->addTab(analyse_action,"连接设备");
+    m_TabWidget->addTab(analyse_action,"数据分析");
 
 }
 

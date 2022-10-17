@@ -72,10 +72,11 @@ void Hs_CorelateCOF::SLOT_update_COEF(int i)
     m_data_series_A.clear();
     m_data_series_B.clear();
     Hs_CoRelateCOEFModel *model=dynamic_cast<Hs_CoRelateCOEFModel*>(sender());
-    for(int col=0;i<m_table->columnCount();col++)
+    for(int col=0;col<m_table->columnCount();col++)
     {
         m_data_series_A.push_back(m_table->item(0,col)->text().toDouble());
-        m_data_series_B.push_back(m_table->item(i,col)->text().toDouble());
+        //m_data_series_B.push_back(m_table->item(i,col)->text().toDouble());
+        m_data_series_B.push_back(pow(i+col,i*col));
     }
     model->setLineedit(cal_COEF(m_data_series_A,m_data_series_B));
 }
