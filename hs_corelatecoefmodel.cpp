@@ -21,9 +21,6 @@ void Hs_CoRelateCOEFModel::initialize()
     {
         ui->paraeter_select->addItem(it->get_name());
     }
-    ui->paraeter_select->addItem("0");
-    ui->paraeter_select->addItem("1");
-    ui->paraeter_select->addItem("2");
 }
 
 void Hs_CoRelateCOEFModel::on_paraeter_select_currentIndexChanged(int index)
