@@ -196,29 +196,30 @@ void Hs_analyse::test1()
 
 void Hs_analyse::test2()
 {
-
+    m_coef->add_display_part();
 }
 
 void Hs_analyse::write_to_table()
 {
     QOpcUaNode *node=dynamic_cast<QOpcUaNode*>(sender());
-    qDebug()<<node->valueAttribute().value<float>();
-    QTableWidgetItem *headerItem;
+    double curvalue=node->valueAttribute().value<float>();
+    QTableWidgetItem *Item=Item=new QTableWidgetItem(QString::number(curvalue));
+
     //根据发送者，找到他在表格中应该的位置（行数）。
     //由于触发write_to_table函数的顺序就是m_nodes容器内nodeid的顺序，可以使用map记录nodeid名和下标的关系
     //利用nodeid可以找到对应的下标
-    if(m_map.count(node))
-    {
-        headerItem=new QTableWidgetItem(QString::number(node->valueAttribute().value<double>()));
-        m_table->setItem(m_map[node]+1,m_table->columnCount()-2,headerItem);
-    }
-    else
+    if(!m_map.count(node))
     {
         m_map.insert(node,index);
-        headerItem=new QTableWidgetItem(QString::number(node->valueAttribute().value<double>()));
-        m_table->setItem(index+1,m_table->columnCount()-2,headerItem);
         index++;
     }
+    //判断是否在上下限之内
+    if(curvalue>m_nodes[m_map[node]]->get_up_limit()||curvalue<m_nodes[m_map[node]]->get_down_limit())
+    {
+        Item->setBackgroundColor(Qt::red);
+    }
+    m_table->setItem(m_map[node]+1,m_table->columnCount()-2,Item);
+
     //根据节点的下标在数据库中找到对应的列,在数据库添加记录
     m_DB->add_record(m_cur_active_DBTable,m_map[node]+1,node->valueAttribute().value<double>());
 }

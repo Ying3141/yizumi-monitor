@@ -23,7 +23,7 @@ public:
 
     static double cal_COEF(QVector<double>&data1,QVector<double>&data2);
 
-    void add_display_part();//添加一组相关系数展示框
+    void add_display_part();//添加相关系数展示框
 
     void update_combobox();
 

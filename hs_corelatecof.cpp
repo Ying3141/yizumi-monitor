@@ -47,24 +47,13 @@ double Hs_CorelateCOF::cal_COEF(QVector<double> &data_series_A, QVector<double> 
 
 void Hs_CorelateCOF::add_display_part()
 {
-    if(m_models.size()>=4)
+    if(m_models.size()>=6)
         return;
-    Hs_CoRelateCOEFModel *model1=new Hs_CoRelateCOEFModel(m_nodes);
-    Hs_CoRelateCOEFModel *model2=new Hs_CoRelateCOEFModel(m_nodes);
-    Hs_CoRelateCOEFModel *model3=new Hs_CoRelateCOEFModel(m_nodes);
-    Hs_CoRelateCOEFModel *model4=new Hs_CoRelateCOEFModel(m_nodes);
-    m_models.push_back(model1);
-    m_models.push_back(model2);
-    m_models.push_back(model3);
-    m_models.push_back(model4);
-    ui->verticalLayout->insertWidget(1,model1);
-    ui->verticalLayout->insertWidget(2,model2);
-    ui->verticalLayout->insertWidget(3,model3);
-    ui->verticalLayout->insertWidget(4,model4);
-    connect(model1,SIGNAL(index_changed(int)),this,SLOT(SLOT_update_COEF(int)));
-    connect(model2,SIGNAL(index_changed(int)),this,SLOT(SLOT_update_COEF(int)));
-    connect(model3,SIGNAL(index_changed(int)),this,SLOT(SLOT_update_COEF(int)));
-    connect(model4,SIGNAL(index_changed(int)),this,SLOT(SLOT_update_COEF(int)));
+
+    Hs_CoRelateCOEFModel *model=new Hs_CoRelateCOEFModel(m_nodes);
+    m_models.push_back(model);
+    ui->verticalLayout->insertWidget(1,model);
+    connect(model,SIGNAL(index_changed(int)),this,SLOT(SLOT_update_COEF(int)));
 }
 
 void Hs_CorelateCOF::SLOT_update_COEF(int i)
@@ -82,7 +71,7 @@ void Hs_CorelateCOF::SLOT_update_COEF(int i)
 
 void Hs_CorelateCOF::update_combobox()
 {
-    for(int i=0;i<4;i++)
+    for(int i=0;i<m_models.size();i++)
     {
         m_models[i]->initialize();
     }

@@ -20,7 +20,6 @@ public:
 public slots:
 
     void SLOT_endpointsRequestFinished (QVector<QOpcUa::QEndpointDescription> endpoints , QOpcUa::UaStatusCode statusCode);
-//    void SLOT_attributeRead ( QOpcUa::NodeAttributes attributes );
     void SLOT_stateChanged (QOpcUaClient::ClientState state );
 
 signals:

@@ -42,10 +42,5 @@ void Hs_OpcUAClient::SLOT_stateChanged(QOpcUaClient::ClientState state)
     send_connect_status("Client state changed:" + *metaEnum.valueToKey(state));
 }
 
-//void Hs_OpcUAClient::SLOT_attributeRead(QOpcUa::NodeAttributes attributes)
-//{
-//    qDebug() << "Signal for attributes:" << attributes;
-//    qDebug()<<"value:"<<m_node->attribute(QOpcUa::NodeAttribute::Value);
-//}
 
 
