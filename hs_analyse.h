@@ -8,6 +8,7 @@
 #include "hs_collect_setting.h"
 #include "hs_node_setting.h"
 #include "hs_corelatecof.h"
+#include "hs_historydata.h"
 #include "windows.h"
 #include <QMap>
 
@@ -53,12 +54,13 @@ private:
     Hs_collect_setting      *m_node_select=nullptr;
     Hs_Node_setting         *m_node_setting=nullptr;
     Hs_OpcUAClient          *m_client=nullptr;
-    Hs_CorelateCOF          *m_coef=nullptr;
     MainWindow              *m_parent=nullptr;
     QMap<QOpcUaNode*,int>   m_map;
     int                     index=0;
     bool                    is_first_mold=true;
     QTableWidget            *m_table=nullptr;
+//相关分析窗口
+    Hs_CorelateCOF          *m_coef=nullptr;
 //当前数据库工作表格名
     QString                 m_cur_active_DBTable;
 //周期计数节点
@@ -67,6 +69,8 @@ private:
     Hs_Database             *m_DB=nullptr;
 //测试节点
     QOpcUaNode              *testnode=nullptr;
+//历史数据查看窗口
+    Hs_HistoryData          *m_history;
 
 };
 

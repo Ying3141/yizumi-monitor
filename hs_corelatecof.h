@@ -30,6 +30,8 @@ public:
 private slots:
     void SLOT_update_COEF(int);
 
+    void on_pushButton_clicked();
+
 private:
     Ui::Hs_CorelateCOF *ui;
     QSpacerItem *spacer_item = nullptr;

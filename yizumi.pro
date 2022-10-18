@@ -7,6 +7,8 @@
 QT       += core gui
 QT       += opcua
 QT       += sql
+QT       += charts
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -41,7 +43,8 @@ SOURCES += \
     hs_database_test.cpp \
     hs_database.cpp \
     hs_corelatecof.cpp \
-    hs_corelatecoefmodel.cpp
+    hs_corelatecoefmodel.cpp \
+    hs_historydata.cpp
 
 
 HEADERS += \
@@ -58,7 +61,8 @@ HEADERS += \
     hs_database_test.h \
     hs_database.h \
     hs_corelatecof.h \
-    hs_corelatecoefmodel.h
+    hs_corelatecoefmodel.h \
+    hs_historydata.h
 
 
 FORMS += \
@@ -72,7 +76,8 @@ FORMS += \
     hs_database_test.ui \
     hs_database.ui \
     hs_corelatecof.ui \
-    hs_corelatecoefmodel.ui
+    hs_corelatecoefmodel.ui \
+    hs_historydata.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -52,7 +52,7 @@ void Hs_CorelateCOF::add_display_part()
 
     Hs_CoRelateCOEFModel *model=new Hs_CoRelateCOEFModel(m_nodes);
     m_models.push_back(model);
-    ui->verticalLayout->insertWidget(1,model);
+    ui->verticalLayout->insertWidget(2,model);
     connect(model,SIGNAL(index_changed(int)),this,SLOT(SLOT_update_COEF(int)));
 }
 
@@ -77,3 +77,8 @@ void Hs_CorelateCOF::update_combobox()
     }
 }
 
+
+void Hs_CorelateCOF::on_pushButton_clicked()
+{
+    add_display_part();
+}

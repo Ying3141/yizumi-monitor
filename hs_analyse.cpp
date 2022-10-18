@@ -162,7 +162,7 @@ void Hs_analyse::write_test()//测试写
 void Hs_analyse::create_database_table()
 {
     //创建数据库
-    m_DB=new Hs_Database("C:/Users/Ying/Desktop/yizumi..db3");
+    m_DB=new Hs_Database("./yizumi..db3");
 
     //根据当前时间命名表格
     QDateTime current_date_time =QDateTime::currentDateTime();
@@ -196,13 +196,14 @@ void Hs_analyse::test1()
 
 void Hs_analyse::test2()
 {
-    m_coef->add_display_part();
+    m_history=new Hs_HistoryData();
+    m_history->show();
 }
 
 void Hs_analyse::write_to_table()
 {
     QOpcUaNode *node=dynamic_cast<QOpcUaNode*>(sender());
-    double curvalue=node->valueAttribute().value<float>();
+    double curvalue=node->valueAttribute().value<double>();
     QTableWidgetItem *Item=Item=new QTableWidgetItem(QString::number(curvalue));
 
     //根据发送者，找到他在表格中应该的位置（行数）。
@@ -221,7 +222,7 @@ void Hs_analyse::write_to_table()
     m_table->setItem(m_map[node]+1,m_table->columnCount()-2,Item);
 
     //根据节点的下标在数据库中找到对应的列,在数据库添加记录
-    m_DB->add_record(m_cur_active_DBTable,m_map[node]+1,node->valueAttribute().value<double>());
+    m_DB->add_record(m_cur_active_DBTable,m_map[node]+1,curvalue);
 }
 
 

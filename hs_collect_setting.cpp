@@ -32,19 +32,6 @@ void Hs_collect_setting::initialize()
     ui->node_input->setMinimumHeight(20);
     ui->chinese_name->setMinimumHeight(10);
     ui->node_name->setMinimumHeight(10);
-
-    m_GridLayout=new QGridLayout();
-    m_GridLayout->addWidget(ui->chinese_name,0,0,1,2);
-    m_GridLayout->addWidget(ui->ch_input,0,2,1,8);
-    m_GridLayout->addWidget(ui->node_name,1,0,1,2);
-    m_GridLayout->addWidget(ui->node_input,1,2,1,8);
-    m_GridLayout->addWidget(ui->pushButton,2,0,1,10);
-    m_GridLayout->addWidget(ui->chinese_names,3,0,6,4);
-    m_GridLayout->addWidget(ui->node_names,3,6,6,4);
-    m_GridLayout->addWidget(ui->pushButton_2,9,0,2,10);
-
-    setLayout(m_GridLayout);
-
 }
 
 void Hs_collect_setting::closeEvent(QCloseEvent * event)

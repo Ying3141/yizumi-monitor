@@ -34,11 +34,6 @@ void Hs_Database::create_new_table(QString SQL)
         {
             qDebug() << "Table created!";
         }
-
-//    m_tabmodel=new QSqlTableModel(this,DB);
-//    m_tabmodel->setTable ("testTable");
-//    m_tabmodel->setEditStrategy(QSqlTableModel::OnManualSubmit);
-//    m_tabmodel->select();
 }
 
 void Hs_Database::add_column(QString SQL)
