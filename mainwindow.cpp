@@ -6,11 +6,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setContextMenuPolicy(Qt::CustomContextMenu);
     initializeTab();
     initializeUI();
     initslots();
     this->resize(1280,720);
+    setContextMenuPolicy(Qt::CustomContextMenu);
 }
 
 MainWindow::~MainWindow()
@@ -27,17 +27,11 @@ void MainWindow::set_statusbartext(QString text)
 
 void MainWindow::initializeTab()
 {
-//    m_TabWidget=new QTabWidget();
-//    m_TabWidget->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
-//    analyse=new Hs_analyse(this);
-//    analyse_action=new Hs_Analyse_Action();
-//    analyse_action->bindWidget(analyse);
-//    m_TabWidget->addTab(analyse_action,"连接设备");
-
     analyse=new Hs_analyse(this);
     analyse_action=new Hs_Analyse_Action();
     analyse_action->bindWidget(analyse);
     ui->tabWidget->addTab(analyse_action,"连接设备");
+    ui->tabWidget->setContextMenuPolicy(Qt::CustomContextMenu);
 }
 
 void MainWindow::initializeUI()
@@ -85,6 +79,4 @@ void MainWindow::on_actHideTab_triggered()
 {
     hidewindow();
 }
-
-
 

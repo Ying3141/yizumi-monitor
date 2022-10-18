@@ -45,6 +45,7 @@ private slots:
     void hidewindow();
     void on_actHideTab_triggered();
     void on_tabWidget_customContextMenuRequested(const QPoint &pos);
+
 private:
 
     bool                b_hidebar=false;
