@@ -5,6 +5,7 @@
 #include <QLayout>
 #include <QTableWidget>
 #include <QtOpcUa>
+#include <QMenu>
 #include "hs_analyse.h"
 #include "hs_analyse_action.h"
 
@@ -42,6 +43,8 @@ public:
 private slots:
     void set_statusbartext(QString);
     void hidewindow();
+    void on_actHideTab_triggered();
+    void on_tabWidget_customContextMenuRequested(const QPoint &pos);
 private:
 
     bool                b_hidebar=false;

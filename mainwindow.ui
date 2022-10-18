@@ -44,9 +44,9 @@
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="New">
+  <action name="actHideTab">
    <property name="text">
-    <string>新建</string>
+    <string>隐藏Tab</string>
    </property>
   </action>
  </widget>

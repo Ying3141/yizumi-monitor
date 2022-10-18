@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setContextMenuPolicy(Qt::CustomContextMenu);
     initializeTab();
     initializeUI();
     initslots();
@@ -70,3 +71,20 @@ void MainWindow::hidewindow()
         b_hidebar=false;
     }
 }
+
+void MainWindow::on_tabWidget_customContextMenuRequested(const QPoint &pos)
+{
+    Q_UNUSED(pos);
+    QMenu *menulist=new QMenu(this);
+    menulist->addAction(ui->actHideTab);
+    menulist->exec(QCursor::pos());
+    delete  menulist;
+}
+
+void MainWindow::on_actHideTab_triggered()
+{
+    hidewindow();
+}
+
+
+

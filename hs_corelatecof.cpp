@@ -15,6 +15,7 @@ Hs_CorelateCOF::Hs_CorelateCOF(QVector<hs_node*>&nodes,QTableWidget *table,QWidg
     m_nodes=&nodes;
     m_table=table;
     m_parent=dynamic_cast<Hs_analyse*>(parent) ;
+    setContextMenuPolicy(Qt::CustomContextMenu);
 }
 
 Hs_CorelateCOF::~Hs_CorelateCOF()
@@ -96,7 +97,6 @@ void Hs_CorelateCOF::on_Hs_CorelateCOF_customContextMenuRequested(const QPoint &
     menulist->addAction(ui->actHideWindow);
     menulist->exec(QCursor::pos());
     delete  menulist;
-
 }
 
 void Hs_CorelateCOF::on_actHideWindow_triggered()

@@ -184,8 +184,6 @@ void Hs_analyse::create_cov_window()
     if(!m_coef)
     {
         m_coef=new Hs_CorelateCOF(m_nodes,m_table,this);
-        m_coef->setContextMenuPolicy(Qt::CustomContextMenu);
-
         m_DownRightLay=new QHBoxLayout();
         m_parent->m_mainGLay->addLayout(m_DownRightLay,0,8,8,2);
         m_DownRightLay->addWidget(m_coef);
