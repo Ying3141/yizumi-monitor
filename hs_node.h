@@ -26,7 +26,7 @@ private:
     bool    usable;
     float   up_limit;
     float   down_limit;
-    QOpcUaNode *m_node;
+    QOpcUaNode *m_node=nullptr;
 };
 
 #endif // HS_NODE_H

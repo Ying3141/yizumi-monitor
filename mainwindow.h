@@ -26,6 +26,9 @@ public:
     QHBoxLayout         *m_DownLeftLay=nullptr;
     QHBoxLayout         *m_DownRightLay=nullptr;
     Hs_analyse          *analyse=nullptr;
+    QTabWidget          *m_TabWidget;
+    QGridLayout         *m_mainGLay;
+    QHBoxLayout         *m_UpLay;
 
     //初始化TabWidget，
     //初始化动作类hs_analyse_action
@@ -38,14 +41,10 @@ public:
 
 private slots:
     void set_statusbartext(QString);
-
+    void testslot();
 private:
 
-    QTabWidget          *m_TabWidget;
-    QGridLayout         *m_mainGLay;
-    QHBoxLayout         *m_UpLay;
-
-
+    bool                b_hidebar=false;
     Hs_Analyse_Action *analyse_action=nullptr;
 
 };

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>256</width>
-    <height>576</height>
+    <height>449</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -57,6 +57,11 @@
     </spacer>
    </item>
   </layout>
+  <action name="actHideWindow">
+   <property name="text">
+    <string>隐藏窗口</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

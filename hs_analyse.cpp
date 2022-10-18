@@ -184,6 +184,7 @@ void Hs_analyse::test1()
     if(!m_coef)
     {
         m_coef=new Hs_CorelateCOF(m_nodes,m_table);
+        m_coef->setContextMenuPolicy(Qt::CustomContextMenu);
         m_parent->m_DownRightLay->addWidget(m_coef);
         m_coef->add_display_part();
     }
@@ -191,7 +192,6 @@ void Hs_analyse::test1()
     {
         m_coef->update_combobox();
     }
-
 }
 
 void Hs_analyse::test2()

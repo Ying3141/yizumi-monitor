@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QLineEdit>
 #include <QSpacerItem>
+#include <QMenu>
 #include <math.h>
 #include <QTableWidget>
 #include "hs_corelatecoefmodel.h"
@@ -31,6 +32,10 @@ private slots:
     void SLOT_update_COEF(int);
 
     void on_pushButton_clicked();
+
+    void on_Hs_CorelateCOF_customContextMenuRequested(const QPoint &pos);
+
+    void on_actHideWindow_triggered();
 
 private:
     Ui::Hs_CorelateCOF *ui;

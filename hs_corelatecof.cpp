@@ -8,7 +8,6 @@ Hs_CorelateCOF::Hs_CorelateCOF(QVector<hs_node*>&nodes,QTableWidget *table,QWidg
     ui->setupUi(this);
     m_nodes=&nodes;
     m_table=table;
-//    setStyleSheet("QWidget{background: white;}");
 }
 
 Hs_CorelateCOF::~Hs_CorelateCOF()
@@ -81,4 +80,19 @@ void Hs_CorelateCOF::update_combobox()
 void Hs_CorelateCOF::on_pushButton_clicked()
 {
     add_display_part();
+}
+
+void Hs_CorelateCOF::on_Hs_CorelateCOF_customContextMenuRequested(const QPoint &pos)
+{
+    Q_UNUSED(pos);
+    QMenu *menulist=new QMenu(this);
+    menulist->addAction(ui->actHideWindow);
+    menulist->exec(QCursor::pos());
+    delete  menulist;
+
+}
+
+void Hs_CorelateCOF::on_actHideWindow_triggered()
+{
+
 }
