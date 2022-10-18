@@ -42,22 +42,17 @@ void MainWindow::initializeTab()
 void MainWindow::initializeUI()
 {
     m_mainGLay=new QGridLayout (ui->widget);
-//    m_UpLay=new QHBoxLayout();
     m_DownLeftLay=new QHBoxLayout();
-    m_DownRightLay=new QHBoxLayout();
-//    m_mainGLay->addLayout(m_UpLay,0,0,2,10);
     m_mainGLay->addLayout(m_DownLeftLay,0,0,8,8);
-    m_mainGLay->addLayout(m_DownRightLay,0,8,8,2);
-//    m_UpLay->addWidget(m_TabWidget);
 }
 
 
 void MainWindow::initslots()
 {
-    connect(ui->tabWidget,&QTabWidget::tabBarDoubleClicked,this,&MainWindow::testslot);
+    connect(ui->tabWidget,&QTabWidget::tabBarDoubleClicked,this,&MainWindow::hidewindow);
 }
 
-void MainWindow::testslot()
+void MainWindow::hidewindow()
 {
     if(!b_hidebar)
     {

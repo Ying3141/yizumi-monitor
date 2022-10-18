@@ -1,6 +1,12 @@
 #include "hs_corelatecof.h"
 #include "ui_hs_corelatecof.h"
 
+#include "hs_analyse.h"
+#include "ui_hs_analyse.h"
+
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+
 Hs_CorelateCOF::Hs_CorelateCOF(QVector<hs_node*>&nodes,QTableWidget *table,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Hs_CorelateCOF)
@@ -8,6 +14,7 @@ Hs_CorelateCOF::Hs_CorelateCOF(QVector<hs_node*>&nodes,QTableWidget *table,QWidg
     ui->setupUi(this);
     m_nodes=&nodes;
     m_table=table;
+    m_parent=dynamic_cast<Hs_analyse*>(parent) ;
 }
 
 Hs_CorelateCOF::~Hs_CorelateCOF()
@@ -94,5 +101,6 @@ void Hs_CorelateCOF::on_Hs_CorelateCOF_customContextMenuRequested(const QPoint &
 
 void Hs_CorelateCOF::on_actHideWindow_triggered()
 {
-
+    m_parent->m_parent->m_mainGLay->removeItem(m_parent->m_DownRightLay);
+    this->hide();
 }

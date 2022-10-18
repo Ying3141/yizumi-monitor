@@ -179,19 +179,33 @@ void Hs_analyse::create_database_table()
     }
 }
 
-void Hs_analyse::test1()
+void Hs_analyse::create_cov_window()
 {
     if(!m_coef)
     {
-        m_coef=new Hs_CorelateCOF(m_nodes,m_table);
+        m_coef=new Hs_CorelateCOF(m_nodes,m_table,this);
         m_coef->setContextMenuPolicy(Qt::CustomContextMenu);
-        m_parent->m_DownRightLay->addWidget(m_coef);
+
+        m_DownRightLay=new QHBoxLayout();
+        m_parent->m_mainGLay->addLayout(m_DownRightLay,0,8,8,2);
+        m_DownRightLay->addWidget(m_coef);
         m_coef->add_display_part();
+    }
+    else if(m_coef->isHidden())
+    {
+        m_parent->m_mainGLay->addLayout(m_DownRightLay,0,8,8,2);
+        m_coef->show();
+        m_coef->update_combobox();
     }
     else
     {
         m_coef->update_combobox();
     }
+}
+
+void Hs_analyse::test1()
+{
+
 }
 
 void Hs_analyse::test2()

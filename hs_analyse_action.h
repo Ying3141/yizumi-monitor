@@ -38,6 +38,7 @@ private slots:
     void on_test1_clicked();
     void on_test2_clicked();
     void on_start_collecting_toggled(bool checked);
+    void on_cov_analyse_clicked();
 };
 
 #endif // HS_ANALYSE_ACTION_H

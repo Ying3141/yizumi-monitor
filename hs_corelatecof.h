@@ -10,6 +10,8 @@
 #include "hs_corelatecoefmodel.h"
 #include "hs_node.h"
 
+class Hs_analyse;
+
 namespace Ui {
 class Hs_CorelateCOF;
 }
@@ -39,12 +41,13 @@ private slots:
 
 private:
     Ui::Hs_CorelateCOF *ui;
-    QSpacerItem *spacer_item = nullptr;
-    QVector<Hs_CoRelateCOEFModel*> m_models;
-    QVector<hs_node*>   *m_nodes;
-    QTableWidget        *m_table;
-    QVector<double>     m_data_series_A;
-    QVector<double>     m_data_series_B;
+    QSpacerItem                     *spacer_item = nullptr;
+    QVector<Hs_CoRelateCOEFModel*>  m_models;
+    QVector<hs_node*>               *m_nodes;
+    QTableWidget                    *m_table;
+    QVector<double>                 m_data_series_A;
+    QVector<double>                 m_data_series_B;
+    Hs_analyse                      *m_parent=nullptr;
 };
 
 #endif // HS_CORELATECOF_H

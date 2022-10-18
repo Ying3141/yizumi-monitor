@@ -41,11 +41,11 @@ public:
 
 private slots:
     void set_statusbartext(QString);
-    void testslot();
+    void hidewindow();
 private:
 
     bool                b_hidebar=false;
-    Hs_Analyse_Action *analyse_action=nullptr;
+    Hs_Analyse_Action   *analyse_action=nullptr;
 
 };
 

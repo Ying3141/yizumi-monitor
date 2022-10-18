@@ -23,9 +23,12 @@ class Hs_analyse : public QWidget
     Q_OBJECT
 
 public:
+    MainWindow              *m_parent=nullptr;
+    QHBoxLayout             *m_DownRightLay;
+
+public:
     explicit Hs_analyse(QWidget *parent = nullptr);
     ~Hs_analyse();
-
     void connect_to_server();
     void node_select();
     void node_setting();
@@ -34,9 +37,9 @@ public:
     void stop_collecting();
     void write_test();
     void create_database_table();
+    void create_cov_window();
     void test1();
     void test2();
-
 
     QVector<hs_node*>   get_m_nodes();
     Hs_OpcUAClient*     get_m_client();
@@ -54,7 +57,6 @@ private:
     Hs_collect_setting      *m_node_select=nullptr;
     Hs_Node_setting         *m_node_setting=nullptr;
     Hs_OpcUAClient          *m_client=nullptr;
-    MainWindow              *m_parent=nullptr;
     QMap<QOpcUaNode*,int>   m_map;
     int                     index=0;
     bool                    is_first_mold=true;
