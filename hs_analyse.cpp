@@ -55,23 +55,7 @@ void Hs_analyse::node_select()//打开节点添加窗口，并初始化对机台
 
     //关闭节点添加窗口时，自动创建表格，自动添加分析
     connect(m_node_select,&Hs_collect_setting::ui_closed,this,&Hs_analyse::create_analyse);
-    connect(m_node_select,&Hs_collect_setting::ui_closed,this,&Hs_analyse::test1);
-}
-
-void Hs_analyse::node_setting()//打开节点设置窗口
-{
-    if(!m_node_select)
-    {
-        QMessageBox::warning(this,"错误","未选择节点",QMessageBox::Ok,QMessageBox::NoButton);
-        return;
-    }
-
-    if(!m_node_setting)
-    {
-        m_node_setting=new Hs_Node_setting(m_nodes);
-    }
-    m_node_setting->initialize();
-    m_node_setting->show();
+    connect(m_node_select,&Hs_collect_setting::ui_closed,this,&Hs_analyse::create_cov_window);
 }
 
 void Hs_analyse::create_analyse()//在主界面的下半部分创建一个表格
@@ -206,10 +190,21 @@ void Hs_analyse::test1()
 
 }
 
+void Hs_analyse::create_historydata_window()
+{
+    if(!m_history)
+    {
+        m_history=new Hs_HistoryData();
+        m_history->show();
+    }
+    else {
+        m_history->show();
+    }
+}
+
 void Hs_analyse::test2()
 {
-    m_history=new Hs_HistoryData();
-    m_history->show();
+
 }
 
 void Hs_analyse::write_to_table()
@@ -241,4 +236,9 @@ void Hs_analyse::write_to_table()
 Hs_OpcUAClient* Hs_analyse::get_m_client()
 {
     return m_client;
+}
+
+Hs_connect_to_server* Hs_analyse::get_m_connect_to_server()
+{
+    return m_connect_to_server;
 }

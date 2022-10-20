@@ -36,7 +36,7 @@
       <property name="minimumSize">
        <size>
         <width>0</width>
-        <height>120</height>
+        <height>50</height>
        </size>
       </property>
      </widget>
@@ -44,9 +44,64 @@
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>573</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>机台设置</string>
+    </property>
+    <addaction name="actSwiitchMachine"/>
+    <addaction name="actNewMachine"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>采集设置</string>
+    </property>
+    <addaction name="actNodeSetting"/>
+   </widget>
+   <widget class="QMenu" name="menu_3">
+    <property name="title">
+     <string>历史数据</string>
+    </property>
+    <addaction name="actHistoryData"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+   <addaction name="menu_3"/>
+  </widget>
   <action name="actHideTab">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
-    <string>隐藏Tab</string>
+    <string>隐藏</string>
+   </property>
+  </action>
+  <action name="actSwiitchMachine">
+   <property name="text">
+    <string>切换机台</string>
+   </property>
+  </action>
+  <action name="actNewMachine">
+   <property name="text">
+    <string>新建机台</string>
+   </property>
+  </action>
+  <action name="actNodeSetting">
+   <property name="text">
+    <string>节点配置</string>
+   </property>
+  </action>
+  <action name="actHistoryData">
+   <property name="text">
+    <string>历史数据</string>
    </property>
   </action>
  </widget>

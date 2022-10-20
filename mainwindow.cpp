@@ -18,19 +18,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
-void MainWindow::set_statusbartext(QString text)
-{
-    ui->statusBar->showMessage(text,5000);
-}
-
-
 void MainWindow::initializeTab()
 {
     analyse=new Hs_analyse(this);
     analyse_action=new Hs_Analyse_Action();
     analyse_action->bindWidget(analyse);
     ui->tabWidget->addTab(analyse_action,"连接设备");
+    ui->tabWidget->setTabBarAutoHide(true);
     ui->tabWidget->setContextMenuPolicy(Qt::CustomContextMenu);
 }
 
@@ -61,7 +55,7 @@ void MainWindow::hidewindow()
     {
         ui->tabWidget->removeTab(0);
         ui->tabWidget->addTab(analyse_action,"连接设备");
-        ui->tabWidget->setMinimumHeight(120);
+        ui->tabWidget->setMinimumHeight(50);
         b_hidebar=false;
     }
 }
@@ -78,5 +72,22 @@ void MainWindow::on_tabWidget_customContextMenuRequested(const QPoint &pos)
 void MainWindow::on_actHideTab_triggered()
 {
     hidewindow();
+}
+
+void MainWindow::on_actNodeSetting_triggered()
+{
+    analyse->node_select();
+}
+
+void MainWindow::on_actNewMachine_triggered()
+{
+    analyse->connect_to_server();
+    connect(analyse->get_m_connect_to_server(),SIGNAL(sendstatus(QString)),analyse_action,SLOT(on_machine_changed(QString)));
+}
+
+void MainWindow::on_actHistoryData_triggered()
+{
+    analyse->create_historydata_window();
+    ui->menu->
 }
 

@@ -17,59 +17,40 @@ Hs_Analyse_Action::~Hs_Analyse_Action()
 
 void Hs_Analyse_Action::bindWidget(QWidget *widget)
 {
-    m_analyse = dynamic_cast<Hs_analyse *>(widget);
+    m_analyse = dynamic_cast<Hs_analyse *>(widget); 
 }
 
 void Hs_Analyse_Action::initialize()
 {
-    ui->connect_to_server->resize(60,80);
-    ui->node_select->resize(60,80);
-    ui->node_setting->resize(60,80);
     ui->create_analyse->resize(60,80);
     ui->start_collecting->resize(60,80);
     ui->cov_analyse->resize(60,80);
     ui->test1->resize(60,80);
     ui->test2->resize(60,80);
 
-    ui->connect_to_server->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Minimum);
-    ui->node_select->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Minimum);
-    ui->node_setting->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Minimum);
     ui->create_analyse->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Minimum);
     ui->start_collecting->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Minimum);
     ui->cov_analyse->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Minimum);
     ui->test1->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Minimum);
     ui->test2->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Minimum);
 
-    ui->connect_to_server->setText("连接\n设备");
-    ui->node_select->setText("节点\n选择");
-    ui->node_setting->setText("节点\n设置");
     ui->create_analyse->setText("创建\n分析");
-    ui->start_collecting->setText("开始\n采集");
+    ui->start_collecting->setText("未在\n采集");
     ui->cov_analyse->setText("相关\n分析");
     ui->test1->setText("测试\n1");
-    ui->test2->setText("测试\n2");
+    ui->test2->setText("测试\n2");\
 
     ui->start_collecting->setCheckable(true);
+    ui->start_collecting->setStyleSheet("background-color:rgb(255,99,71)");
+
+    t_time = new QTimer(this);
+    t_time->start(1000);//设置时间间隔为1秒
+
 }
 
 void Hs_Analyse_Action::initialize_slots()
 {
-
-}
-
-void Hs_Analyse_Action::on_connect_to_server_clicked()
-{
-    m_analyse->connect_to_server();
-}
-
-void Hs_Analyse_Action::on_node_select_clicked()
-{
-    m_analyse->node_select();
-}
-
-void Hs_Analyse_Action::on_node_setting_clicked()
-{
-    m_analyse->node_setting();
+    connect(t_time, SIGNAL(timeout()), this, SLOT(time_out()));
 }
 
 void Hs_Analyse_Action::on_create_analyse_clicked()
@@ -108,4 +89,16 @@ void Hs_Analyse_Action::on_start_collecting_toggled(bool checked)
         ui->start_collecting->setText("未在\n采集");
         m_analyse->stop_collecting();
     }
+}
+
+void Hs_Analyse_Action::time_out()
+{
+    QDateTime t_time = QDateTime::currentDateTime();
+    QString t_str = t_time.toString("ddd yyyy-MM-dd hh:mm:ss");
+    ui->time->setText(t_str);
+}
+
+void Hs_Analyse_Action::on_machine_changed(QString url)
+{
+    ui->curmachine->setText("当前机台:"+url);
 }

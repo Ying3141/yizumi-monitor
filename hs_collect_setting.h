@@ -26,6 +26,9 @@ protected :
 
 private slots:
     void on_pushButton_clicked();
+    void on_nodename_comboBox_currentIndexChanged(int index);
+    void on_uplimit_doubleSpinBox_valueChanged(double arg1);
+    void on_downlimit_doubleSpinBox_valueChanged(double arg1);
 
 signals:
     void ui_closed();
