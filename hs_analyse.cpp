@@ -28,6 +28,7 @@ void Hs_analyse::connect_to_server()//打开链接机台窗口
     m_connect_to_server->show();
 }
 
+//接受返回的机台连接
 void Hs_analyse::receive_client(Hs_OpcUAClient *m_client)
 {
     this->m_client=m_client;
@@ -98,15 +99,16 @@ void Hs_analyse::create_analyse()//在主界面的下半部分创建一个表格
     headerItem=new QTableWidgetItem("相关系数");
     m_table->setHorizontalHeaderItem(3,headerItem);
 
+    QTableWidgetItem *InitItem;
 
-
-//    for(int i=0;i<m_table->rowCount();i++)
-//    {
-//        for(int j=0;j<4;j++)
-//        {
-//            m_table->item(i,j)->setText("0");
-//        }
-//    }
+    for(int i=0;i<m_table->rowCount();i++)
+    {
+        for(int j=0;j<4;j++)
+        {
+            InitItem=new QTableWidgetItem("0");
+            m_table->setItem(i,j,InitItem);
+        }
+    }
 
     for(int i=0;i<m_nodes.size();i++)
     {

@@ -55,7 +55,7 @@ void MainWindow::hidewindow()
     {
         ui->tabWidget->removeTab(0);
         ui->tabWidget->addTab(analyse_action,"连接设备");
-        ui->tabWidget->setMinimumHeight(50);
+        ui->tabWidget->setMinimumHeight(0);
         b_hidebar=false;
     }
 }

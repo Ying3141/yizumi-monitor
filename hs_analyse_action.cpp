@@ -23,7 +23,7 @@ void Hs_Analyse_Action::bindWidget(QWidget *widget)
 void Hs_Analyse_Action::initialize()
 {
     ui->create_analyse->resize(60,80);
-    ui->start_collecting->resize(60,80);
+    ui->start_collecting->resize(120,80);
     ui->cov_analyse->resize(60,80);
     ui->test1->resize(60,80);
     ui->test2->resize(60,80);
@@ -34,11 +34,11 @@ void Hs_Analyse_Action::initialize()
     ui->test1->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Minimum);
     ui->test2->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Minimum);
 
-    ui->create_analyse->setText("创建\n分析");
-    ui->start_collecting->setText("未在\n采集");
-    ui->cov_analyse->setText("相关\n分析");
-    ui->test1->setText("测试\n1");
-    ui->test2->setText("测试\n2");\
+    ui->create_analyse->setText("创建分析");
+    ui->start_collecting->setText("未在采集");
+    ui->cov_analyse->setText("相关分析");
+    ui->test1->setText("测试1");
+    ui->test2->setText("测试2");\
 
     ui->start_collecting->setCheckable(true);
     ui->start_collecting->setStyleSheet("background-color:rgb(255,99,71)");
@@ -79,14 +79,14 @@ void Hs_Analyse_Action::on_start_collecting_toggled(bool checked)
     if(checked)
     {
         ui->start_collecting->setStyleSheet("background-color:rgb(173,255,47)");
-        ui->start_collecting->setText("正在\n采集");
+        ui->start_collecting->setText("正在采集");
         m_analyse->start_collecting();
     }
 
     if(!checked)
     {
         ui->start_collecting->setStyleSheet("background-color:rgb(255,99,71)");
-        ui->start_collecting->setText("未在\n采集");
+        ui->start_collecting->setText("未在采集");
         m_analyse->stop_collecting();
     }
 }
