@@ -41,10 +41,17 @@ public:
     void initslots();
 
 private slots:
-    void set_statusbartext(QString);
     void hidewindow();
+
     void on_actHideTab_triggered();
+
     void on_tabWidget_customContextMenuRequested(const QPoint &pos);
+
+    void on_actNodeSetting_triggered();
+
+    void on_actNewMachine_triggered();
+
+    void on_actHistoryData_triggered();
 
 private:
 

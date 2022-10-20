@@ -6,7 +6,6 @@
 #include "hs_database.h"
 #include "hs_connect_to_server.h"
 #include "hs_collect_setting.h"
-#include "hs_node_setting.h"
 #include "hs_corelatecof.h"
 #include "hs_historydata.h"
 #include "windows.h"
@@ -38,11 +37,13 @@ public:
     void write_test();
     void create_database_table();
     void create_cov_window();
+    void create_historydata_window();
     void test1();
     void test2();
 
-    QVector<hs_node*>   get_m_nodes();
-    Hs_OpcUAClient*     get_m_client();
+    QVector<hs_node*>       get_m_nodes();
+    Hs_OpcUAClient*         get_m_client();
+    Hs_connect_to_server*   get_m_connect_to_server();
 
 private slots:
     //接受来自Hs_connect_to_server类的服务器
@@ -55,7 +56,6 @@ private:
     QVector<hs_node*>       m_nodes;
     Hs_connect_to_server    *m_connect_to_server=nullptr;
     Hs_collect_setting      *m_node_select=nullptr;
-    Hs_Node_setting         *m_node_setting=nullptr;
     Hs_OpcUAClient          *m_client=nullptr;
     QMap<QOpcUaNode*,int>   m_map;
     int                     index=0;
@@ -72,7 +72,7 @@ private:
 //测试节点
     QOpcUaNode              *testnode=nullptr;
 //历史数据查看窗口
-    Hs_HistoryData          *m_history;
+    Hs_HistoryData          *m_history=nullptr;
 
 };
 

@@ -36,10 +36,7 @@ SOURCES += \
     hs_opcuaclient.cpp \
     hs_collect_setting.cpp \
     hs_node.cpp \
-    hs_thread.cpp \
     hs_analyse_action.cpp \
-    hs_node_setting.cpp \
-    hs_thread2.cpp \
     hs_database_test.cpp \
     hs_database.cpp \
     hs_corelatecof.cpp \
@@ -54,10 +51,7 @@ HEADERS += \
     hs_opcuaclient.h \
     hs_collect_setting.h \
     hs_node.h \
-    hs_thread.h \
     hs_analyse_action.h \
-    hs_node_setting.h \
-    hs_thread2.h \
     hs_database_test.h \
     hs_database.h \
     hs_corelatecof.h \
@@ -71,7 +65,6 @@ FORMS += \
     hs_opcuaclient.ui \
     hs_collect_setting.ui \
     hs_analyse_action.ui \
-    hs_node_setting.ui \
     hs_analyse.ui \
     hs_database_test.ui \
     hs_database.ui \

@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include "hs_analyse.h"
+#include<QDateTime>
+#include<QTimer>
+#include<QFont>
 
 namespace Ui {
 class Hs_Analyse_Action;
@@ -28,17 +31,17 @@ private:
     Ui::Hs_Analyse_Action *ui;
 
     Hs_analyse *m_analyse=nullptr;
+    QTimer *t_time=nullptr;
 
 private slots:
     //按键功能绑定
-    void on_connect_to_server_clicked();
-    void on_node_select_clicked();
-    void on_node_setting_clicked();
     void on_create_analyse_clicked();
     void on_test1_clicked();
     void on_test2_clicked();
     void on_start_collecting_toggled(bool checked);
     void on_cov_analyse_clicked();
+    void time_out();
+    void on_machine_changed(QString);
 };
 
 #endif // HS_ANALYSE_ACTION_H
