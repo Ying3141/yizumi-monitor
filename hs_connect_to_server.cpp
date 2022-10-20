@@ -22,9 +22,9 @@ void Hs_connect_to_server::on_connect_button_clicked()
 
     if(*m_serverURL!="")
     {
-//        m_client=new Hs_OpcUAClient(*m_serverURL);
-//        sendclient(m_client);
-//        connect(m_client,SIGNAL(send_connect_status(QString)),this,SLOT(receive_connect_status(QString)));
+        m_client=new Hs_OpcUAClient(*m_serverURL);
+        sendclient(m_client);
+        connect(m_client,SIGNAL(send_connect_status(QString)),this,SLOT(receive_connect_status(QString)));
     }
     sendstatus(*m_serverURL);
     close();

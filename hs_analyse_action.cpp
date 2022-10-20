@@ -91,13 +91,14 @@ void Hs_Analyse_Action::on_start_collecting_toggled(bool checked)
     }
 }
 
+//窗口时间展示
 void Hs_Analyse_Action::time_out()
 {
     QDateTime t_time = QDateTime::currentDateTime();
     QString t_str = t_time.toString("ddd yyyy-MM-dd hh:mm:ss");
     ui->time->setText(t_str);
 }
-
+//窗口当前机台展示
 void Hs_Analyse_Action::on_machine_changed(QString url)
 {
     ui->curmachine->setText("当前机台:"+url);

@@ -84,26 +84,44 @@ void Hs_analyse::create_analyse()//在主界面的下半部分创建一个表格
         }
     }
 
-    m_table=new QTableWidget(m_nodes.size()+1,1,this);
+    m_table=new QTableWidget(6,5,this);
 
     QTableWidgetItem *headerItem;
     headerItem=new QTableWidgetItem("产品重量");
     m_table->setVerticalHeaderItem(0,headerItem);
+    headerItem=new QTableWidgetItem("最大值");
+    m_table->setHorizontalHeaderItem(0,headerItem);
+    headerItem=new QTableWidgetItem("最小值");
+    m_table->setHorizontalHeaderItem(1,headerItem);
+    headerItem=new QTableWidgetItem("平均值");
+    m_table->setHorizontalHeaderItem(2,headerItem);
+    headerItem=new QTableWidgetItem("相关系数");
+    m_table->setHorizontalHeaderItem(3,headerItem);
+
+
+
+//    for(int i=0;i<m_table->rowCount();i++)
+//    {
+//        for(int j=0;j<4;j++)
+//        {
+//            m_table->item(i,j)->setText("0");
+//        }
+//    }
 
     for(int i=0;i<m_nodes.size();i++)
     {
         headerItem=new QTableWidgetItem(m_nodes.at(i)->get_name());
         m_table->setVerticalHeaderItem(i+1,headerItem);
     }
-    m_parent->m_DownLeftLay->addWidget(m_table);
 
+    m_parent->m_DownLeftLay->addWidget(m_table);
+    //在数据库中创建对应的表
     create_database_table();
 }
 
 void Hs_analyse::on_new_mold_detected()
 {
-    int curCol=m_table->columnCount();
-    m_table->insertColumn(curCol);
+    m_table->insertColumn(4);
 
     qDebug()<<"on_new_mold_detected works";
 
@@ -169,13 +187,13 @@ void Hs_analyse::create_cov_window()
     {
         m_coef=new Hs_CorelateCOF(m_nodes,m_table,this);
         m_DownRightLay=new QHBoxLayout();
-        m_parent->m_mainGLay->addLayout(m_DownRightLay,0,8,8,2);
+        m_parent->m_mainGLay->addLayout(m_DownRightLay,0,8,8,1);
         m_DownRightLay->addWidget(m_coef);
         m_coef->add_display_part();
     }
     else if(m_coef->isHidden())
     {
-        m_parent->m_mainGLay->addLayout(m_DownRightLay,0,8,8,2);
+        m_parent->m_mainGLay->addLayout(m_DownRightLay,0,8,8,1);
         m_coef->show();
         m_coef->update_combobox();
     }
@@ -187,7 +205,7 @@ void Hs_analyse::create_cov_window()
 
 void Hs_analyse::test1()
 {
-
+    m_table->insertColumn(4);
 }
 
 void Hs_analyse::create_historydata_window()
@@ -226,7 +244,19 @@ void Hs_analyse::write_to_table()
     {
         Item->setBackgroundColor(Qt::red);
     }
-    m_table->setItem(m_map[node]+1,m_table->columnCount()-2,Item);
+    m_table->setItem(m_map[node]+1,4,Item);
+
+    //判断是否超过最大值，更新最大值
+    if(curvalue>m_table->item(m_map[node]+1,0)->text().toDouble())
+        m_table->item(m_map[node]+1,0)->setText(QString::number(curvalue));
+    //判断是否超过最小值，更新最小值
+    if(curvalue<m_table->item(m_map[node]+1,1)->text().toDouble())
+        m_table->item(m_map[node]+1,1)->setText(QString::number(curvalue));
+    //更新平均值
+    double sum=0;
+    for(int i=4;i<m_table->columnCount()-1;i++)
+        sum+=m_table->item(m_map[node]+1,i)->text().toDouble();
+    m_table->item(m_map[node]+1,2)->setText(QString::number(sum/(m_table->columnCount()-5)));
 
     //根据节点的下标在数据库中找到对应的列,在数据库添加记录
     m_DB->add_record(m_cur_active_DBTable,m_map[node]+1,curvalue);

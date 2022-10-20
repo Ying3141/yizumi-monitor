@@ -88,6 +88,5 @@ void MainWindow::on_actNewMachine_triggered()
 void MainWindow::on_actHistoryData_triggered()
 {
     analyse->create_historydata_window();
-    ui->menu->
 }
 
