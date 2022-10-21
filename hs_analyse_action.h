@@ -5,7 +5,6 @@
 #include "hs_analyse.h"
 #include<QDateTime>
 #include<QTimer>
-#include<QFont>
 
 namespace Ui {
 class Hs_Analyse_Action;

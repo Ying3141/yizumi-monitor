@@ -2,6 +2,7 @@
 #define HSMAINWINDOW_H
 
 #include <QWidget>
+#include "hs_historydata.h"
 
 struct CustomTreeItemModel {
     CustomTreeItemModel *parent = nullptr;

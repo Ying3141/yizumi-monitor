@@ -36,6 +36,7 @@ void Hs_analyse::receive_client(Hs_OpcUAClient *m_client)
 
 void Hs_analyse::node_select()//打开节点添加窗口，并初始化对机台周期参数的node，用于后续监控一模结束
 {
+//    测试时保留注释
 //    if(!m_client)
 //    {
 //        QMessageBox::warning(this,"错误","未连接服务器",QMessageBox::Ok,QMessageBox::NoButton);
@@ -48,7 +49,7 @@ void Hs_analyse::node_select()//打开节点添加窗口，并初始化对机台
     }
 
     m_node_select->show();
-
+//    测试时保留注释
 //    m_shotcountNode=this->m_client->m_client->node("ns=4;s=APPL.system.sv_iShotCounterAct");
 //    m_shotcountNode->enableMonitoring(QOpcUa::NodeAttribute::Value,QOpcUaMonitoringParameters());//对周期参数进行监视
 
@@ -61,6 +62,7 @@ void Hs_analyse::node_select()//打开节点添加窗口，并初始化对机台
 
 void Hs_analyse::create_analyse()//在主界面的下半部分创建一个表格
 {
+//    测试时保留注释
 //    if(!m_client)
 //    {
 //        QMessageBox::warning(this,"错误","未连接服务器",QMessageBox::Ok,QMessageBox::NoButton);
@@ -84,7 +86,8 @@ void Hs_analyse::create_analyse()//在主界面的下半部分创建一个表格
             return;
         }
     }
-
+//    测试时保留注释
+    m_table=new QTableWidget(m_nodes.size(),5,this);
     m_table=new QTableWidget(6,5,this);
 
     QTableWidgetItem *headerItem;
@@ -156,11 +159,11 @@ void Hs_analyse::stop_collecting()
 
 void Hs_analyse::write_test()//测试写
 {
-    testnode=m_parent->analyse->get_m_client()->m_client->node("ns=4;s=APPL.Injection1.sv_InjectProfVis.Profile.Points[1].rPressure");
-    QOpcUa::NodeAttribute attribute ;
-    attribute = QOpcUa::NodeAttribute::Value;
-    QVariant var=130;
-    testnode->writeAttribute(attribute,var,QOpcUa::Types::Float);
+//    testnode=m_parent->analyse->get_m_client()->m_client->node("ns=4;s=APPL.Injection1.sv_InjectProfVis.Profile.Points[1].rPressure");
+//    QOpcUa::NodeAttribute attribute ;
+//    attribute = QOpcUa::NodeAttribute::Value;
+//    QVariant var=130;
+//    testnode->writeAttribute(attribute,var,QOpcUa::Types::Float);
 }
 
 void Hs_analyse::create_database_table()

@@ -69,8 +69,6 @@ private:
     QOpcUaNode              *m_shotcountNode=nullptr;
 //SQLite数据库
     Hs_Database             *m_DB=nullptr;
-//测试节点
-    QOpcUaNode              *testnode=nullptr;
 //历史数据查看窗口
     Hs_HistoryData          *m_history=nullptr;
 

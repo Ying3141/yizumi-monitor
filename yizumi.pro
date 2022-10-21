@@ -37,7 +37,6 @@ SOURCES += \
     hs_collect_setting.cpp \
     hs_node.cpp \
     hs_analyse_action.cpp \
-    hs_database_test.cpp \
     hs_database.cpp \
     hs_corelatecof.cpp \
     hs_corelatecoefmodel.cpp \
@@ -57,7 +56,6 @@ HEADERS += \
     hs_collect_setting.h \
     hs_node.h \
     hs_analyse_action.h \
-    hs_database_test.h \
     hs_database.h \
     hs_corelatecof.h \
     hs_corelatecoefmodel.h \
@@ -77,7 +75,6 @@ FORMS += \
     hs_collect_setting.ui \
     hs_analyse_action.ui \
     hs_analyse.ui \
-    hs_database_test.ui \
     hs_database.ui \
     hs_corelatecof.ui \
     hs_corelatecoefmodel.ui \

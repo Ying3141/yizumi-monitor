@@ -39,7 +39,6 @@ void Hs_OpcUAClient::SLOT_stateChanged(QOpcUaClient::ClientState state)
 {
     qDebug() << "Client state changed:" << state;
     QMetaEnum metaEnum = QMetaEnum::fromType<QOpcUaClient::ClientState>();
-    send_connect_status("Client state changed:" + *metaEnum.valueToKey(state));
 }
 
 
