@@ -41,7 +41,12 @@ SOURCES += \
     hs_database.cpp \
     hs_corelatecof.cpp \
     hs_corelatecoefmodel.cpp \
-    hs_historydata.cpp
+    hs_historydata.cpp \
+    HsMainWindow.cpp \
+    HsBasicInfo.cpp \
+    HsMonitoring.cpp \
+    HsAnalysis.cpp \
+    HsHomePage.cpp
 
 
 HEADERS += \
@@ -56,7 +61,13 @@ HEADERS += \
     hs_database.h \
     hs_corelatecof.h \
     hs_corelatecoefmodel.h \
-    hs_historydata.h
+    hs_historydata.h \
+    HsMainWindow.h \
+    HsUI.h \
+    HsBasicInfo.h \
+    HsMonitoring.h \
+    HsAnalysis.h \
+    HsHomePage.h
 
 
 FORMS += \
@@ -70,9 +81,17 @@ FORMS += \
     hs_database.ui \
     hs_corelatecof.ui \
     hs_corelatecoefmodel.ui \
-    hs_historydata.ui
+    hs_historydata.ui \
+    HsMainWindow.ui \
+    HsBasicInfo.ui \
+    HsMonitoring.ui \
+    HsAnalysis.ui \
+    HsHomePage.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    hsui.qrc

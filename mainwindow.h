@@ -9,6 +9,7 @@
 #include "hs_analyse.h"
 #include "hs_analyse_action.h"
 
+class HsMainWindow;
 
 namespace Ui {
 class MainWindow;
@@ -21,6 +22,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    friend class HsMainWindow;
 
 //开放主界面UI权限，使子界面可以进行调用
     Ui::MainWindow      *ui;
@@ -40,6 +43,15 @@ public:
     void initializeUI();
     void initslots();
 
+public:
+    static QMap<QString, QAction *> &getActionMap() {
+        return m_actionMap;
+    }
+
+private:
+    void initializeView();
+    void updateToolBar(int viewType);
+
 private slots:
     void hidewindow();
 
@@ -58,6 +70,10 @@ private:
     bool                b_hidebar=false;
     Hs_Analyse_Action   *analyse_action=nullptr;
 
+    static QMap<QString, QAction *> m_actionMap;
+    QToolBar *m_toolBar = nullptr;
+    HsMainWindow *m_hsMainWindow = nullptr;
+    QHash<int, QStringList> m_toolbarMap;
 };
 
 #endif // MAINWINDOW_H

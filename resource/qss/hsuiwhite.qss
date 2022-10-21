@@ -1,0 +1,6 @@
+QGroupBox
+{
+    color: red;
+    font-size: 18px;
+    font-weight: bold;
+}

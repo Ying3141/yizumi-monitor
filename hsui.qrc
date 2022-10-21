@@ -1,0 +1,35 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resource/icon/baocun.png</file>
+        <file>resource/icon/blank.png</file>
+        <file>resource/icon/caijishezhi.png</file>
+        <file>resource/icon/curve.png</file>
+        <file>resource/icon/daochu.png</file>
+        <file>resource/icon/daoru.png</file>
+        <file>resource/icon/fengzhiqushi.png</file>
+        <file>resource/icon/jiankongshezhi.png</file>
+        <file>resource/icon/jifenqushi.png</file>
+        <file>resource/icon/lianjieduankai.png</file>
+        <file>resource/icon/mainicon.png</file>
+        <file>resource/icon/quxianchongxie.png</file>
+        <file>resource/icon/quxianhuizhi.png</file>
+        <file>resource/icon/quxiantingzhi.png</file>
+        <file>resource/icon/shezhi.png</file>
+        <file>resource/icon/shishiquxian.png</file>
+        <file>resource/icon/tongdaoshezhi.png</file>
+        <file>resource/icon/tongji.png</file>
+        <file>resource/icon/xinhaolianjie.png</file>
+        <file>resource/qss/black.qss</file>
+        <file>resource/qss/blue.qss</file>
+        <file>resource/qss/gray.qss</file>
+        <file>resource/qss/hsui.qss</file>
+        <file>resource/qss/hsuiblack.qss</file>
+        <file>resource/qss/hsuiblue.qss</file>
+        <file>resource/qss/hsuigreen.qss</file>
+        <file>resource/qss/hsuipink.qss</file>
+        <file>resource/qss/hsuiwhite.qss</file>
+        <file>resource/qss/newStyle.qss</file>
+        <file>resource/qss/psblack.qss</file>
+        <file>resource/qss/white.qss</file>
+    </qresource>
+</RCC>
