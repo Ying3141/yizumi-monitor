@@ -3,6 +3,7 @@
 
 #include "HsUI.h"
 #include "HsMainWindow.h"
+#include "HsDataManage.h"
 
 QMap<QString, QAction *> MainWindow::m_actionMap;
 
@@ -10,12 +11,12 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-//    ui->setupUi(this);
-//    initializeTab();
-//    initializeUI();
-//    initslots();
-//    this->resize(1280,720);
-//    setContextMenuPolicy(Qt::CustomContextMenu);
+    ui->setupUi(this);
+    initializeTab();
+    initializeUI();
+    initslots();
+    this->resize(1280,720);
+    setContextMenuPolicy(Qt::CustomContextMenu);
     initializeView();
 }
 
@@ -103,11 +104,17 @@ void MainWindow::initializeView()
     serverMenu->addAction(connectAct);
     actionMap["Connect"] = connectAct;
 
-    QAction *disconnectAct = new QAction(QIcon(":/resource/icon/lianjieduankai.png"), tr("&断开连接"), this);
-    disconnectAct->setShortcuts(QKeySequence::SaveAs);
-    disconnectAct->setStatusTip(tr("Disconnect from opc ua server"));
-    serverMenu->addAction(disconnectAct);
-    actionMap["Disconnect"] = disconnectAct;
+    QAction *addNodeAct = new QAction(QIcon(":/resource/icon/daochu.png"), tr("&添加节点"), this);
+    addNodeAct->setShortcuts(QKeySequence::SaveAs);
+    addNodeAct->setStatusTip(tr("add data node"));
+    serverMenu->addAction(addNodeAct);
+    actionMap["Node"] = addNodeAct;
+
+    QAction *monitorSettingAct = new QAction(QIcon(":/resource/icon/daochu.png"), tr("&监控设置"), this);
+    monitorSettingAct->setShortcuts(QKeySequence::SaveAs);
+    monitorSettingAct->setStatusTip(tr("adjust monitor setting"));
+    serverMenu->addAction(monitorSettingAct);
+    actionMap["Monitor"] = monitorSettingAct;
 
     ui->menuBar->addMenu(tr("&工具"));
     ui->menuBar->addMenu(tr("&帮助"));
@@ -115,7 +122,7 @@ void MainWindow::initializeView()
     QStringList toolBarList = { "Create", "Open", "Save", "SaveAs", "separator", "Exit" };
 
     m_toolbarMap[HsUI::HOMEPAGE] = QStringList({ "Create", "Open", "Save", "SaveAs", "separator", "Exit" });
-    m_toolbarMap[HsUI::DATAMONITOR] = QStringList({ "Create", "Open", "Save", "SaveAs", "separator", "Connect", "Disconnect", "separator", "Exit" });
+    m_toolbarMap[HsUI::DATAMONITOR] = QStringList({ "Create", "Open", "Save", "SaveAs", "separator", "Connect", "Node", "Monitor", "separator", "Exit" });
     m_toolbarMap[HsUI::DATAANALYSIS] = QStringList({ "Create", "Open", "Save", "SaveAs", "separator", "Exit" });
 
     this->updateToolBar(HsUI::HOMEPAGE);
@@ -126,13 +133,16 @@ void MainWindow::initializeView()
         ui->centralWidget->layout()->removeItem(ui->centralWidget->layout()->itemAt(0));
     }
     ui->centralWidget->layout()->addWidget(m_hsMainWindow);
+
 }
 
 void MainWindow::updateToolBar(int viewType)
 {
-    if (m_toolbarMap[viewType].length() <= 0) return;
 
-    const QStringList &list = m_toolbarMap[viewType];
+    QStringList list = m_toolbarMap[viewType];
+    if (list.length() <= 0)
+        list = m_toolbarMap[HsUI::HOMEPAGE];
+
     auto &actionMap = MainWindow::getActionMap();
     // 更新工具栏
     m_toolBar->clear();

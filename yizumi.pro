@@ -45,7 +45,12 @@ SOURCES += \
     HsBasicInfo.cpp \
     HsMonitoring.cpp \
     HsAnalysis.cpp \
-    HsHomePage.cpp
+    HsHomePage.cpp \
+    HsConnectConfig.cpp \
+    HsMonitorConfig.cpp \
+    HsDataModel.cpp \
+    HsDataManage.cpp \
+    HsNodeConfig.cpp
 
 
 HEADERS += \
@@ -65,7 +70,12 @@ HEADERS += \
     HsBasicInfo.h \
     HsMonitoring.h \
     HsAnalysis.h \
-    HsHomePage.h
+    HsHomePage.h \
+    HsConnectConfig.h \
+    HsMonitorConfig.h \
+    HsDataModel.h \
+    HsDataManage.h \
+    HsNodeConfig.h
 
 
 FORMS += \
@@ -83,7 +93,10 @@ FORMS += \
     HsBasicInfo.ui \
     HsMonitoring.ui \
     HsAnalysis.ui \
-    HsHomePage.ui
+    HsHomePage.ui \
+    HsConnectConfig.ui \
+    HsMonitorConfig.ui \
+    HsNodeConfig.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
