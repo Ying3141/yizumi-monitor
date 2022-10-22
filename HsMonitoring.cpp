@@ -16,6 +16,7 @@ HsMonitoring::HsMonitoring(QWidget *parent) :
     ui->setupUi(this);
 
     initializeView();
+    initialize_slots();
 }
 
 HsMonitoring::~HsMonitoring()
@@ -55,5 +56,21 @@ void HsMonitoring::initializeView()
 
     for (auto i(0); i < nodes.length(); ++i) {
         ui->tableWidget->setItem(i, 0, new QTableWidgetItem(nodes[i].nodeName));
+
+    //初始化时钟
+    t_time = new QTimer(this);
+    t_time->start(1000);//设置时间间隔为1秒
     }
+}
+
+void HsMonitoring::initialize_slots()
+{
+    connect(t_time, SIGNAL(timeout()), this, SLOT(time_out()));
+}
+
+void HsMonitoring::time_out()
+{
+    QDateTime t_time = QDateTime::currentDateTime();
+    QString t_str = t_time.toString("ddd yyyy-MM-dd hh:mm:ss");
+    ui->Time->setText(t_str);
 }

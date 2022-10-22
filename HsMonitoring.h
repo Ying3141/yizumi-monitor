@@ -2,6 +2,8 @@
 #define HSMONITORING_H
 
 #include <QWidget>
+#include<QDateTime>
+#include<QTimer>
 
 class HsConnectConfig;
 class HsNodeConfig;
@@ -21,6 +23,10 @@ public:
 
 private:
     void initializeView();
+    void initialize_slots();
+
+private slots:
+    void time_out();
 
 private:
     Ui::HsMonitoring *ui;
@@ -28,6 +34,8 @@ private:
     HsConnectConfig *m_connectConfig = nullptr;
     HsNodeConfig *m_dataNode = nullptr;
     HsMonitorConfig *m_monitorConfig = nullptr;
+
+    QTimer *t_time=nullptr;
 };
 
 #endif // HSMONITORING_H
