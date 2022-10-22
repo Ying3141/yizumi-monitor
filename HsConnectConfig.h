@@ -2,6 +2,7 @@
 #define HSCONNECTCONFIG_H
 
 #include <QWidget>
+#include <QtOpcUa>
 
 namespace Ui {
 class HsConnectConfig;
@@ -21,6 +22,8 @@ public:
 
 private slots:
     void on_connect_clicked();
+
+    void on_endpointsRequestFinished (QVector<QOpcUa::QEndpointDescription> endpoints , QOpcUa::UaStatusCode statusCode);
 
 private:
     void initializeView();
