@@ -52,3 +52,30 @@ void HsNodeConfig::on_delNode_clicked()
         ui->listWidget->takeItem(ui->listWidget->row(selectItems.at(i)) - i);
     }
 }
+
+void HsNodeConfig::on_confirm_clicked()
+{
+    // 更新node信息
+    auto &dataModel = HsDataManage::instance()->getDataModel();
+    auto &nodes = dataModel[0].nodes;
+    nodes.clear();
+
+    for (auto i(0); i < ui->listWidget->count(); ++i) {
+        auto item = ui->listWidget->item(i)->text();
+        QStringList viewNode = item.split(": ");
+        NodeModel node;
+        node.nodeName = viewNode[0];
+        node.nodePath = viewNode[1];
+        node.enable = true;
+        nodes.push_back(node);
+    }
+
+    emit updateView();
+
+    this->close();
+}
+
+void HsNodeConfig::on_cancel_clicked()
+{
+    this->close();
+}

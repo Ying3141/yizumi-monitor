@@ -45,5 +45,6 @@ void HsDataManage::initialize()
     NodeModel node;
     node.nodeName = "制品重量";
     node.nodePath = "//qwe//qwe//qwe";
+    node.enable = true;
     nodes.push_back(node);
 }

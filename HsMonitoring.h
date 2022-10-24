@@ -21,12 +21,16 @@ public:
     explicit HsMonitoring(QWidget *parent = nullptr);
     ~HsMonitoring();
 
+protected:
+    virtual void showEvent(QShowEvent *event);
+
 private:
     void initializeView();
     void initialize_slots();
 
 private slots:
     void time_out();
+    void loadModelData();
 
 private:
     Ui::HsMonitoring *ui;

@@ -16,8 +16,10 @@ struct ConnectModel {
 struct NodeModel {
     QString nodeName;
     QString nodePath;
+    bool enable;
     float upperLimit;
     float lowerLimit;
+    QList<float> records;
 };
 
 class HsDataModel

@@ -24,10 +24,14 @@ HsMonitoring::~HsMonitoring()
     delete ui;
 }
 
+void HsMonitoring::showEvent(QShowEvent *event)
+{
+
+}
+
 void HsMonitoring::initializeView()
 {
     auto &actionMap = MainWindow::getActionMap();
-    auto &nodes = HsDataManage::instance()->getDataModel()[0].nodes;
 
     // 服务器连接配置界面
     m_connectConfig = new HsConnectConfig;
@@ -40,6 +44,9 @@ void HsMonitoring::initializeView()
     connect(actionMap["Node"], &QAction::triggered, this, [&]{
        m_dataNode->show();
     });
+    connect(m_dataNode, &HsNodeConfig::updateView, this, [&]{
+       this->loadModelData();
+    });
 
     // 监控配置界面
     m_monitorConfig = new HsMonitorConfig;
@@ -47,11 +54,18 @@ void HsMonitoring::initializeView()
        m_monitorConfig->show();
     });
 
+    loadModelData();
+}
+
+void HsMonitoring::loadModelData()
+{
+    auto &nodes = HsDataManage::instance()->getDataModel()[0].nodes;
+
     // 配置表格
     QStringList tableHeader;
     ui->tableWidget->setRowCount(5);
     ui->tableWidget->setColumnCount(5);
-    tableHeader << "node name" << "1" << "2" << "3" << "4";
+    tableHeader << "变量名" << "1" << "2" << "3" << "4";
     ui->tableWidget->setHorizontalHeaderLabels(tableHeader);
 
     for (auto i(0); i < nodes.length(); ++i) {
