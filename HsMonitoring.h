@@ -30,7 +30,14 @@ private:
 
 private slots:
     void time_out();
+
     void loadModelData();
+
+    void updateModelData();
+
+    void on_pushButton_toggled(bool checked);
+
+    void on_new_mold_detected();
 
 private:
     Ui::HsMonitoring *ui;

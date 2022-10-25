@@ -20,10 +20,15 @@ public:
     explicit HsConnectConfig(QWidget *parent = nullptr);
     ~HsConnectConfig();
 
+    QOpcUaClient*   get_m_opcClient();
+    QOpcUaNode*     get_m_shotcountNode();
+
 private slots:
     void on_connect_clicked();
 
     void on_endpointsRequestFinished (QVector<QOpcUa::QEndpointDescription> endpoints , QOpcUa::UaStatusCode statusCode);
+
+    void on_stateChanged(QOpcUaClient::ClientState state);
 
 private:
     void initializeView();
@@ -33,7 +38,7 @@ private:
 
     QOpcUaProvider *m_opcPrivider = nullptr;
     QOpcUaClient *m_opcClient = nullptr;
-    QOpcUaNode *m_opcNode = nullptr;
+    QOpcUaNode *m_shotcountNode = nullptr;
 
 };
 

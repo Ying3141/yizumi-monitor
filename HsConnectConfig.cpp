@@ -40,6 +40,7 @@ void HsConnectConfig::on_connect_clicked()
         m_opcClient = m_opcPrivider->createClient(QString("open62541"));
         //根据机台地址连接，获取根节点
         connect(m_opcClient,&QOpcUaClient::endpointsRequestFinished,this,&HsConnectConfig::on_endpointsRequestFinished);
+        connect(m_opcClient,&QOpcUaClient::stateChanged,this,&HsConnectConfig::on_stateChanged);
         m_opcClient->requestEndpoints(QUrl(ui->lEdt_url->text()));
     }
 }
@@ -52,4 +53,32 @@ void HsConnectConfig::on_endpointsRequestFinished(QVector<QOpcUa::QEndpointDescr
     qDebug()<<endpoints.size();
     if (endpoints.size())
         m_opcClient->connectToEndpoint(endpoints.at(0).endpointUrl()); // Connect to the first endpoint in the list
+}
+
+void HsConnectConfig::on_stateChanged(QOpcUaClient::ClientState state)
+{
+    qDebug() << "Client state changed:" << state;
+
+    if (state == QOpcUaClient::ClientState::Disconnected)
+    {
+        m_shotcountNode = nullptr;
+    }
+
+    if (state == QOpcUaClient::ClientState::Connected)
+    {
+        //定义一个表示模次号的node，用于自动采集数据
+        m_shotcountNode = m_opcClient->node("ns=4;s=APPL.system.sv_iShotCounterAct");
+        //对模次号参数进行监视
+        m_shotcountNode->enableMonitoring(QOpcUa::NodeAttribute::Value,QOpcUaMonitoringParameters());
+    }
+}
+
+QOpcUaClient* HsConnectConfig::get_m_opcClient()
+{
+    return m_opcClient;
+}
+
+QOpcUaNode* HsConnectConfig::get_m_shotcountNode()
+{
+    return m_shotcountNode;
 }

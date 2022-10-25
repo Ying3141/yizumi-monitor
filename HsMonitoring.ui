@@ -60,6 +60,9 @@
         <property name="text">
          <string>未在采集</string>
         </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
        </widget>
       </item>
      </layout>
