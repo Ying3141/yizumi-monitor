@@ -36,7 +36,8 @@ void HsDataManage::initialize()
 
     auto &connect = configModel.connect;
     connect.connectName = "machine1";
-    connect.connectUrl = "opc.tcp://192.168.23.43:4842";
+//    connect.connectUrl = "opc.tcp://192.168.23.43:4842";
+    connect.connectUrl = "opc.tcp://127.0.0.1:49320";
     connect.authMethod = 0;
     connect.username = "";
     connect.password = "";

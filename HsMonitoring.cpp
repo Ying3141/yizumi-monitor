@@ -92,7 +92,7 @@ void HsMonitoring::updateModelData()
     QStringList vertical_tableHeader;
     for (auto i(0); i < nodes.length(); ++i)
         vertical_tableHeader.append(nodes[i].nodeName);
-    ui->tableWidget->setVerticalHeaderLabels(vertical_tableHeader);
+    ui->tableWidget->setVerticalHeaderLabels(vertical_tableHeader);、
 }
 
 void HsMonitoring::initialize_slots()

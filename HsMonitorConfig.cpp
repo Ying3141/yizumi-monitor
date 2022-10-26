@@ -21,10 +21,20 @@ HsMonitorConfig::~HsMonitorConfig()
     delete ui;
 }
 
+void HsMonitorConfig::showEvent(QShowEvent *event)
+{
+    loadModelData();
+}
+
 void HsMonitorConfig::initializeView()
 {
     this->setWindowTitle(tr("监控设置"));
     this->setWindowModality(Qt::ApplicationModal);
+
+}
+
+void HsMonitorConfig::loadModelData()
+{
 
     auto &nodes = HsDataManage::instance()->getDataModel()[0].nodes;
 

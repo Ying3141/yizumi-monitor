@@ -43,6 +43,8 @@ void HsConnectConfig::on_connect_clicked()
         connect(m_opcClient,&QOpcUaClient::stateChanged,this,&HsConnectConfig::on_stateChanged);
         m_opcClient->requestEndpoints(QUrl(ui->lEdt_url->text()));
     }
+
+    this->close();
 }
 
 void HsConnectConfig::on_endpointsRequestFinished(QVector<QOpcUa::QEndpointDescription> endpoints , QOpcUa::UaStatusCode statusCode)
@@ -53,6 +55,10 @@ void HsConnectConfig::on_endpointsRequestFinished(QVector<QOpcUa::QEndpointDescr
     qDebug()<<endpoints.size();
     if (endpoints.size())
         m_opcClient->connectToEndpoint(endpoints.at(0).endpointUrl()); // Connect to the first endpoint in the list
+//    auto node = m_opcClient->node("ns=0;i=84");
+    qDebug() << m_opcClient->node("ns=0;i=84");
+    qDebug() << m_opcClient->node("ns=2;i=1");
+    qDebug() << m_opcClient->node("ns=2;i=2");
 }
 
 void HsConnectConfig::on_stateChanged(QOpcUaClient::ClientState state)

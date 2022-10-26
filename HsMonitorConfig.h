@@ -15,8 +15,12 @@ public:
     explicit HsMonitorConfig(QWidget *parent = nullptr);
     ~HsMonitorConfig();
 
+protected:
+    virtual void showEvent(QShowEvent *event);
+
 private:
     void initializeView();
+    void loadModelData();
 
 private:
     Ui::HsMonitorConfig *ui;
