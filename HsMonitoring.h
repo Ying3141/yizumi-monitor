@@ -39,6 +39,8 @@ private slots:
 
     void on_new_mold_detected();
 
+    void on_readAttribute_triggered();
+
 private:
     Ui::HsMonitoring *ui;
 

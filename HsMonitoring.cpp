@@ -85,6 +85,7 @@ void HsMonitoring::loadModelData()
     t_time->start(1000);//设置时间间隔为1秒
 }
 
+//更新表格内容。信号：HsNodeConfig::updateView
 void HsMonitoring::updateModelData()
 {
     auto &nodes = HsDataManage::instance()->getDataModel()[0].nodes;
@@ -92,7 +93,7 @@ void HsMonitoring::updateModelData()
     QStringList vertical_tableHeader;
     for (auto i(0); i < nodes.length(); ++i)
         vertical_tableHeader.append(nodes[i].nodeName);
-    ui->tableWidget->setVerticalHeaderLabels(vertical_tableHeader);、
+    ui->tableWidget->setVerticalHeaderLabels(vertical_tableHeader);
 }
 
 void HsMonitoring::initialize_slots()
@@ -117,6 +118,8 @@ void HsMonitoring::on_pushButton_toggled(bool checked)
         {
             ui->pushButton->setStyleSheet("background-color:rgb(173,255,47)");
             ui->pushButton->setText("正在采集");
+
+            //监测是否新的一模，如果是，则读取参数写入表格
             connect(m_connectConfig->get_m_shotcountNode(),&QOpcUaNode::dataChangeOccurred,this,&HsMonitoring::on_new_mold_detected);
         }
     }
@@ -131,6 +134,17 @@ void HsMonitoring::on_pushButton_toggled(bool checked)
 
 void HsMonitoring::on_new_mold_detected()
 {
-    //此函数完成读取数据并写入表格的操作
-    ui->tableWidget->insertColumn(4);
+    //此函数完成：
+    //1.连接所有节点的读信号 信号：&QOpcUaNode::attributeRead， 槽：on_readAttribute_triggered
+    //示例：connect(m_nodes[i]->get_m_node(),&QOpcUaNode::attributeRead,this,&Hs_analyse::write_to_table);
+    //2.给表格添加新的一列
+    //示例：ui->tableWidget->insertColumn(4);
+    //3.对所有节点进行读操作
+    //示例：m_nodes[i]->get_m_node()->readAttributes(QOpcUa::NodeAttribute::Value);
+
+}
+
+void HsMonitoring::on_readAttribute_triggered()
+{
+    //此函数完成写入表格的操作
 }

@@ -70,7 +70,7 @@ void HsConnectConfig::on_stateChanged(QOpcUaClient::ClientState state)
         m_shotcountNode = nullptr;
     }
 
-    if (state == QOpcUaClient::ClientState::Connected)
+    else if (state == QOpcUaClient::ClientState::Connected)
     {
         //定义一个表示模次号的node，用于自动采集数据
         m_shotcountNode = m_opcClient->node("ns=4;s=APPL.system.sv_iShotCounterAct");
