@@ -4,6 +4,7 @@
 #include <QWidget>
 #include<QDateTime>
 #include<QTimer>
+#include <QtOpcUa>
 
 class HsConnectConfig;
 class HsNodeConfig;
@@ -49,6 +50,8 @@ private:
     HsMonitorConfig *m_monitorConfig = nullptr;
 
     QTimer *t_time=nullptr;
+
+    std::vector<QOpcUaNode*>m_OpcUaNode;
 };
 
 #endif // HSMONITORING_H

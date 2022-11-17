@@ -121,6 +121,13 @@ void HsMonitoring::on_pushButton_toggled(bool checked)
 
             //监测是否新的一模，如果是，则读取参数写入表格
             connect(m_connectConfig->get_m_shotcountNode(),&QOpcUaNode::dataChangeOccurred,this,&HsMonitoring::on_new_mold_detected);
+
+            //把所有nodePath转化为QOpcuanode
+            auto &nodes = HsDataManage::instance()->getDataModel()[0].nodes;
+            for(auto it:nodes)
+            {
+                m_OpcUaNode.push_back(m_connectConfig->get_m_opcClient()->node(it.nodeName));
+            }
         }
     }
 
@@ -129,6 +136,7 @@ void HsMonitoring::on_pushButton_toggled(bool checked)
         ui->pushButton->setStyleSheet("background-color:rgb(255,99,71)");
         ui->pushButton->setText("未在采集");
         m_connectConfig->get_m_shotcountNode()->disconnect();
+        m_OpcUaNode.clear();
     }
 }
 
@@ -142,9 +150,25 @@ void HsMonitoring::on_new_mold_detected()
     //3.对所有节点进行读操作
     //示例：m_nodes[i]->get_m_node()->readAttributes(QOpcUa::NodeAttribute::Value);
 
+    ui->tableWidget->insertColumn(4);
+    for(auto it:m_OpcUaNode)
+    {
+        it->disconnect();
+        connect(it,&QOpcUaNode::attributeRead,this,&HsMonitoring::on_readAttribute_triggered);
+    }
+    for(auto it:m_OpcUaNode)
+    {
+        it->readAttributes(QOpcUa::NodeAttribute::Value);
+    }
 }
 
 void HsMonitoring::on_readAttribute_triggered()
 {
     //此函数完成写入表格的操作
+    QOpcUaNode *node=dynamic_cast<QOpcUaNode*>(sender());
+    double curvalue=node->valueAttribute().value<double>();
+    QTableWidgetItem *Item=Item=new QTableWidgetItem(QString::number(curvalue));
+
+    int index=std::find(m_OpcUaNode.begin(),m_OpcUaNode.end(),node)-m_OpcUaNode.begin();
+    ui->tableWidget->setItem(index,4,Item);
 }

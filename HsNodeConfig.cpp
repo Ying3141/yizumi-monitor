@@ -19,6 +19,16 @@ HsNodeConfig::~HsNodeConfig()
     delete ui;
 }
 
+HsDataBase* HsNodeConfig::getDataBase()
+{
+    return DB;
+}
+
+QString HsNodeConfig::getTableName()
+{
+    return m_tablename;
+}
+
 void HsNodeConfig::initializeView()
 {
     this->setWindowTitle(tr("节点配置"));
@@ -72,7 +82,33 @@ void HsNodeConfig::on_confirm_clicked()
 
     emit updateView();
 
+    CreateDataBase();
+
     this->close();
+}
+
+void HsNodeConfig::CreateDataBase()
+{
+    auto &dataModel = HsDataManage::instance()->getDataModel();
+    auto &nodes = dataModel[0].nodes;
+    auto &connect=dataModel[0].connect;
+    //创建数据库
+    DB=new HsDataBase("./yizumi..db3");
+
+    //根据当前时间命名表格
+    QDateTime current_date_time =QDateTime::currentDateTime();
+    QString current_date =current_date_time.toString("yyyy_MM_dd_hh_mm_ss");
+    m_tablename=connect.connectName+"_"+current_date;
+    DB->create_new_table("create table "+m_tablename+"(id int primary key)");
+
+
+    //根据节点情况在数据库中添加列
+    QString add_col;
+    for(auto it : nodes)
+    {
+        add_col="alter table "+m_tablename+" add column "+it.nodeName+" double;";
+        DB->add_column(add_col);
+    }
 }
 
 void HsNodeConfig::on_cancel_clicked()
