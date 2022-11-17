@@ -126,7 +126,7 @@ void HsMonitoring::on_pushButton_toggled(bool checked)
             //把所有nodePath转化为QOpcuanode
             for(auto it:nodes)
             {
-                m_OpcUaNode.push_back(m_connectConfig->get_m_opcClient()->node(it.nodeName));
+                m_OpcUaNode.push_back(m_connectConfig->get_m_opcClient()->node(it.nodePath));
             }
         }
     }
