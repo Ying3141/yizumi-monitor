@@ -70,8 +70,8 @@ void HsMonitoring::loadModelData()
     //根据节点数添加行数
     ui->tableWidget->setRowCount(nodes.size());
     //初始列数默认包括最大值，最小值，平均值，相关系数，第一模空位
-    ui->tableWidget->setColumnCount(5);
-    tableHeader << "最大值" << "最小值" << "平均值" << "相关系数" << "1";
+    ui->tableWidget->setColumnCount(4);
+    tableHeader << "最大值" << "最小值" << "平均值" << "相关系数";
     ui->tableWidget->setHorizontalHeaderLabels(tableHeader);
 
     QStringList vertical_tableHeader;
@@ -111,6 +111,7 @@ void HsMonitoring::time_out()
 
 void HsMonitoring::on_pushButton_toggled(bool checked)
 {
+    auto &nodes = HsDataManage::instance()->getDataModel()[0].nodes;
     //如果按下
     if(checked)
     {
@@ -123,7 +124,6 @@ void HsMonitoring::on_pushButton_toggled(bool checked)
             connect(m_connectConfig->get_m_shotcountNode(),&QOpcUaNode::dataChangeOccurred,this,&HsMonitoring::on_new_mold_detected);
 
             //把所有nodePath转化为QOpcuanode
-            auto &nodes = HsDataManage::instance()->getDataModel()[0].nodes;
             for(auto it:nodes)
             {
                 m_OpcUaNode.push_back(m_connectConfig->get_m_opcClient()->node(it.nodeName));
@@ -136,6 +136,12 @@ void HsMonitoring::on_pushButton_toggled(bool checked)
         ui->pushButton->setStyleSheet("background-color:rgb(255,99,71)");
         ui->pushButton->setText("未在采集");
         m_connectConfig->get_m_shotcountNode()->disconnect();
+
+        //清空OPcuaNode
+        for(auto it:m_OpcUaNode)
+        {
+            it = nullptr;
+        }
         m_OpcUaNode.clear();
     }
 }
@@ -151,6 +157,7 @@ void HsMonitoring::on_new_mold_detected()
     //示例：m_nodes[i]->get_m_node()->readAttributes(QOpcUa::NodeAttribute::Value);
 
     ui->tableWidget->insertColumn(4);
+
     for(auto it:m_OpcUaNode)
     {
         it->disconnect();
@@ -164,11 +171,34 @@ void HsMonitoring::on_new_mold_detected()
 
 void HsMonitoring::on_readAttribute_triggered()
 {
-    //此函数完成写入表格的操作
+    //完成写入表格的操作
     QOpcUaNode *node=dynamic_cast<QOpcUaNode*>(sender());
-    double curvalue=node->valueAttribute().value<double>();
-    QTableWidgetItem *Item=Item=new QTableWidgetItem(QString::number(curvalue));
+    double value=node->valueAttribute().value<double>();
+    QTableWidgetItem *Item=new QTableWidgetItem(QString::number(value));
 
     int index=std::find(m_OpcUaNode.begin(),m_OpcUaNode.end(),node)-m_OpcUaNode.begin();
     ui->tableWidget->setItem(index,4,Item);
+
+    //完成写入数据库的操作
+    static int counter=0;
+    auto db=m_dataNode->getDataBase();
+    auto tablename=m_dataNode->getTableName();
+    db->add_row(tablename);
+    db->add_record(index+1,value);
+    counter++;
+    if(counter==int(m_OpcUaNode.size()))
+    {
+        QDateTime t_time = QDateTime::currentDateTime();
+        QString t_str = t_time.toString("ddd yyyy-MM-dd hh:mm:ss");
+        db->add_record(1,t_str);
+        db->submitAll();
+        counter=0;
+    }
+}
+
+//测试
+void HsMonitoring::on_pushButton_2_clicked()
+{
+    ui->tableWidget->insertColumn(4);
+    ui->tableWidget->item(0,3)->setBackgroundColor(QColor(255,255,0));
 }

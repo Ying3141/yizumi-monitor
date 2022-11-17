@@ -49,18 +49,22 @@ void HsDataBase::add_column(QString SQL)
         }
 }
 
-void HsDataBase::add_record(QString tablename,int colnum,double var)
+void HsDataBase::add_record(int colnum,QVariant var)
 {
-    m_tabmodel=new QSqlTableModel(this,DB);
-    m_tabmodel->setTable (tablename);
-    m_tabmodel->setSort(m_tabmodel->fieldIndex("MoldCount"),Qt::AscendingOrder);
-    m_tabmodel->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    m_tabmodel->select();
-
-    m_tabmodel->insertRows(m_tabmodel->rowCount(),1);
     m_tabmodel->setData(m_tabmodel->index(m_tabmodel->rowCount()-1,colnum),var);
+}
+
+void HsDataBase::submitAll()
+{
     m_tabmodel->submitAll();
 }
 
-
-
+void HsDataBase::add_row(QString tablename)
+{
+    m_tabmodel=new QSqlTableModel(this,DB);
+    m_tabmodel->setTable (tablename);
+//    m_tabmodel->setSort(m_tabmodel->fieldIndex("MoldCount"),Qt::AscendingOrder);
+    m_tabmodel->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    m_tabmodel->select();
+    m_tabmodel->insertRows(m_tabmodel->rowCount(),1);
+}

@@ -67,6 +67,7 @@ void HsConnectConfig::on_stateChanged(QOpcUaClient::ClientState state)
 
     if (state == QOpcUaClient::ClientState::Disconnected)
     {
+        m_shotcountNode->disableMonitoring(QOpcUa::NodeAttribute::Value);
         m_shotcountNode = nullptr;
     }
 

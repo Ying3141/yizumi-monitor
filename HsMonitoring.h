@@ -42,6 +42,8 @@ private slots:
 
     void on_readAttribute_triggered();
 
+    void on_pushButton_2_clicked();
+
 private:
     Ui::HsMonitoring *ui;
 

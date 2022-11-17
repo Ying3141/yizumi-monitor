@@ -101,9 +101,12 @@ void HsNodeConfig::CreateDataBase()
     m_tablename=connect.connectName+"_"+current_date;
     DB->create_new_table("create table "+m_tablename+"(id int primary key)");
 
-
     //根据节点情况在数据库中添加列
     QString add_col;
+
+    add_col="alter table "+m_tablename+" add column date text;";
+    DB->add_column(add_col);
+
     for(auto it : nodes)
     {
         add_col="alter table "+m_tablename+" add column "+it.nodeName+" double;";

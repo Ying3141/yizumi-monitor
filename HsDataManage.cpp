@@ -48,4 +48,31 @@ void HsDataManage::initialize()
     node.nodePath = "ns=4;s=APPL.Injection1.sv_rScrewPositionAbs";
     node.enable = true;
     nodes.push_back(node);
+
+    node.nodeName = "系统压力";
+    node.nodePath = "ns=4;s=APPL.Injection1.sv_rActPressureHydr";
+    node.enable = true;
+    nodes.push_back(node);
+
+    node.nodeName = "切保位置";
+    node.nodePath = "ns=4;s=APPL.Injection1.sv_rCutOffPosition";
+    node.enable = true;
+    nodes.push_back(node);
+
+    node.nodeName = "最小缓冲";
+    node.nodePath = "ns=4;s=APPL.Injection1.sv_rCushion";
+    node.enable = true;
+    nodes.push_back(node);
+
+    node.nodeName = "熔胶起点";
+    node.nodePath = "ns=4;s=APPL.Injection1.sv_rPlastStartPosition";
+    node.enable = true;
+    nodes.push_back(node);
+
+    node.nodeName = "注射峰压";
+    node.nodePath = "ns=4;s=APPL.Injection1.sv_rInjPeakPressure";
+    node.enable = true;
+    nodes.push_back(node);
+
+
 }

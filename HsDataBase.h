@@ -22,7 +22,9 @@ public:
 public:
     void create_new_table(QString SQL);
     void add_column(QString SQL);
-    void add_record(QString tablename,int colnum,double var);
+    void add_record(int colnum,QVariant var);
+    void add_row(QString tablename);
+    void submitAll();
 
 private:
     Ui::HsDataBase *ui;
