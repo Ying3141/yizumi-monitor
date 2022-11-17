@@ -183,8 +183,11 @@ void HsMonitoring::on_readAttribute_triggered()
     static int counter=0;
     auto db=m_dataNode->getDataBase();
     auto tablename=m_dataNode->getTableName();
-    db->add_row(tablename);
-    db->add_record(index+1,value);
+    if(counter==0)
+    {
+        db->add_row(tablename);
+    }
+    db->add_record(counter+2,value);
     counter++;
     if(counter==int(m_OpcUaNode.size()))
     {
@@ -196,9 +199,4 @@ void HsMonitoring::on_readAttribute_triggered()
     }
 }
 
-//测试
-void HsMonitoring::on_pushButton_2_clicked()
-{
-    ui->tableWidget->insertColumn(4);
-    ui->tableWidget->item(0,3)->setBackgroundColor(QColor(255,255,0));
-}
+

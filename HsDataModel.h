@@ -3,7 +3,6 @@
 
 #include <QString>
 #include <QList>
-
 struct ConnectModel {
     QString connectName;
     QString connectUrl;

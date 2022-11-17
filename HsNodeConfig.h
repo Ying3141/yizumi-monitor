@@ -31,6 +31,7 @@ private:
 
 signals:
     void updateView();
+    void createDB();
 
 private:
     Ui::HsNodeConfig *ui;
