@@ -94,6 +94,13 @@ void HsMonitoring::updateModelData()
     for (auto i(0); i < nodes.length(); ++i)
         vertical_tableHeader.append(nodes[i].nodeName);
     ui->tableWidget->setVerticalHeaderLabels(vertical_tableHeader);
+    //初始化统计值为0
+    //统计值1-5位分别为：最大值，最小值，平均值，方差，相关系数
+    for(int i=0;i<nodes.size();i++)
+    {
+        statistic_data data;
+        m_statisticData.push_back(data);
+    }
 }
 
 void HsMonitoring::initialize_slots()
@@ -178,6 +185,22 @@ void HsMonitoring::on_readAttribute_triggered()
 
     int index=std::find(m_OpcUaNode.begin(),m_OpcUaNode.end(),node)-m_OpcUaNode.begin();
     ui->tableWidget->setItem(index,4,Item);
+
+    //
+    if(value>m_statisticData[index].max)
+    {
+        m_statisticData[index].max=value;
+    }
+    if(value<m_statisticData[index].min)
+    {
+        m_statisticData[index].min=value;
+    }
+    double average=0.0;
+    for(int i=0;i<ui->tableWidget->columnCount();i++)
+    {
+        average+=ui->tableWidget->item(index,i)->text().toDouble()/ui->tableWidget->columnCount();
+    }
+    m_statisticData[index].average=average;
 
     //完成写入数据库的操作
     static int counter=0;

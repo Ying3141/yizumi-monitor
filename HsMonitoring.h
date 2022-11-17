@@ -10,6 +10,15 @@ class HsConnectConfig;
 class HsNodeConfig;
 class HsMonitorConfig;
 
+struct statistic_data
+{
+    double max=double(INT_MIN);
+    double min=double(INT_MAX);
+    double average=0.0;
+    double variance=0.0;
+    double coef=0.0;
+};
+
 namespace Ui {
 class HsMonitoring;
 }
@@ -53,6 +62,7 @@ private:
     QTimer *t_time=nullptr;
 
     std::vector<QOpcUaNode*>m_OpcUaNode;
+    std::vector<statistic_data>m_statisticData;
 };
 
 #endif // HSMONITORING_H
