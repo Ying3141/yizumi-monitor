@@ -55,6 +55,7 @@ private slots:
 
 signals:
     void send_statistic_data(std::vector<statistic_data>);
+    void send_newmold_signal();
 
 private:
     Ui::HsMonitoring *ui;

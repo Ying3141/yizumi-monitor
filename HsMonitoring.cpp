@@ -171,6 +171,7 @@ void HsMonitoring::on_new_mold_detected()
     //示例：ui->tableWidget->insertColumn(4);
     //3.对所有节点进行读操作
     //示例：m_nodes[i]->get_m_node()->readAttributes(QOpcUa::NodeAttribute::Value);
+    emit send_newmold_signal();
 
     ui->tableWidget->insertColumn(0);
 
@@ -260,7 +261,6 @@ void HsMonitoring::on_pushButton_2_clicked()
 //    m_statisticData[0].max=100;
 //    m_statisticData[1].min=-100;
 //    emit(send_statistic_data(m_statisticData));
-//    ui->tableWidget->insertColumn(0);
-
-
+    ui->tableWidget->insertColumn(0);
+    emit send_newmold_signal();
 }

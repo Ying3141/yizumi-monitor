@@ -21,6 +21,14 @@ struct NodeModel {
     QList<float> records;
 };
 
+struct QualityModel{
+    QString QualityName;
+    bool enable;
+    float upperLimit;
+    float lowerLimit;
+    QList<float> records;
+};
+
 class HsDataModel
 {
 public:
@@ -28,6 +36,7 @@ public:
 
     ConnectModel connect;
     QList<NodeModel> nodes;
+    QList<QualityModel> qualitys;
 };
 
 #endif // HSDATAMODEL_H

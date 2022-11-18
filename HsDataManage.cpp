@@ -74,5 +74,9 @@ void HsDataManage::initialize()
     node.enable = true;
     nodes.push_back(node);
 
-
+    auto &qualitys = configModel.qualitys;
+    QualityModel quality;
+    quality.QualityName = "重量";
+    quality.enable = true;
+    qualitys.push_back(quality);
 }

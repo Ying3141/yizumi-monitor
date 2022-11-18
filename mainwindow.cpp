@@ -110,6 +110,12 @@ void MainWindow::initializeView()
     serverMenu->addAction(addNodeAct);
     actionMap["Node"] = addNodeAct;
 
+    QAction *addQualityAct = new QAction(QIcon(":/resource/icon/daochu.png"), tr("&添加指标"), this);
+    addQualityAct->setShortcuts(QKeySequence::SaveAs);
+    addQualityAct->setStatusTip(tr("add data node"));
+    serverMenu->addAction(addQualityAct);
+    actionMap["Quality"] = addQualityAct;
+
     QAction *monitorSettingAct = new QAction(QIcon(":/resource/icon/daochu.png"), tr("&监控设置"), this);
     monitorSettingAct->setShortcuts(QKeySequence::SaveAs);
     monitorSettingAct->setStatusTip(tr("adjust monitor setting"));
@@ -123,7 +129,7 @@ void MainWindow::initializeView()
 
     m_toolbarMap[HsUI::HOMEPAGE] = QStringList({ "Create", "Open", "Save", "SaveAs", "separator", "Exit" });
     m_toolbarMap[HsUI::DATAMONITOR] = QStringList({ "Create", "Open", "Save", "SaveAs", "separator", "Connect", "Node", "Monitor", "separator", "Exit" });
-    m_toolbarMap[HsUI::DATAANALYSIS] = QStringList({ "Create", "Open", "Save", "SaveAs", "separator", "Exit" });
+    m_toolbarMap[HsUI::DATAANALYSIS] = QStringList({ "Create", "Open", "Save", "SaveAs", "separator","Quality", "separator", "Exit"});
 
     this->updateToolBar(HsUI::HOMEPAGE);
 

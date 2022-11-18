@@ -40,7 +40,7 @@
       <item>
        <widget class="QPushButton" name="pushButton">
         <property name="text">
-         <string>刷新</string>
+         <string>更新相关系数</string>
         </property>
         <property name="checkable">
          <bool>false</bool>
