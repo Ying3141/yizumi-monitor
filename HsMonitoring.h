@@ -51,6 +51,10 @@ private slots:
 
     void on_readAttribute_triggered();
 
+    void on_pushButton_2_clicked();
+
+signals:
+    void send_statistic_data(std::vector<statistic_data>);
 
 private:
     Ui::HsMonitoring *ui;

@@ -120,6 +120,7 @@ void HsMainWindow::initializeView()
     m_widgetMap[HsUI::DATAANALYSIS] = analysis;
 
     ui->stackedWidget->setCurrentWidget(home);
+    connect(monitoring,&HsMonitoring::send_statistic_data,analysis,&HsAnalysis::on_statistic_data_receive);
 }
 
 void HsMainWindow::initSignalSlots()

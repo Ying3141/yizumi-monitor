@@ -69,16 +69,18 @@ void HsMonitoring::loadModelData()
     QStringList tableHeader;
     //根据节点数添加行数
     ui->tableWidget->setRowCount(nodes.size());
-    //初始列数默认包括最大值，最小值，平均值，相关系数，第一模空位
-    ui->tableWidget->setColumnCount(4);
-    tableHeader << "最大值" << "最小值" << "平均值" << "相关系数";
-    ui->tableWidget->setHorizontalHeaderLabels(tableHeader);
-
     QStringList vertical_tableHeader;
     for (auto i(0); i < nodes.length(); ++i)
         vertical_tableHeader.append(nodes[i].nodeName);
         //ui->tableWidget->setItem(i, 0, new QTableWidgetItem(nodes[i].nodeName));
     ui->tableWidget->setVerticalHeaderLabels(vertical_tableHeader);
+
+    //初始化统计值数组
+    for(int i=0;i<nodes.size();i++)
+    {
+        statistic_data data;
+        m_statisticData.push_back(data);
+    }
 
     //初始化时钟
     t_time = new QTimer(this);
@@ -94,8 +96,10 @@ void HsMonitoring::updateModelData()
     for (auto i(0); i < nodes.length(); ++i)
         vertical_tableHeader.append(nodes[i].nodeName);
     ui->tableWidget->setVerticalHeaderLabels(vertical_tableHeader);
+
     //初始化统计值为0
     //统计值1-5位分别为：最大值，最小值，平均值，方差，相关系数
+    m_statisticData.clear();
     for(int i=0;i<nodes.size();i++)
     {
         statistic_data data;
@@ -163,7 +167,7 @@ void HsMonitoring::on_new_mold_detected()
     //3.对所有节点进行读操作
     //示例：m_nodes[i]->get_m_node()->readAttributes(QOpcUa::NodeAttribute::Value);
 
-    ui->tableWidget->insertColumn(4);
+    ui->tableWidget->insertColumn(0);
 
     for(auto it:m_OpcUaNode)
     {
@@ -184,23 +188,26 @@ void HsMonitoring::on_readAttribute_triggered()
     QTableWidgetItem *Item=new QTableWidgetItem(QString::number(value));
 
     int index=std::find(m_OpcUaNode.begin(),m_OpcUaNode.end(),node)-m_OpcUaNode.begin();
-    ui->tableWidget->setItem(index,4,Item);
+    ui->tableWidget->setItem(index,0,Item);
 
-    //
+    //更新最大值
     if(value>m_statisticData[index].max)
     {
         m_statisticData[index].max=value;
     }
+    //更新最小值
     if(value<m_statisticData[index].min)
     {
         m_statisticData[index].min=value;
     }
+    //更新平均值
     double average=0.0;
     for(int i=0;i<ui->tableWidget->columnCount();i++)
     {
-        average+=ui->tableWidget->item(index,i)->text().toDouble()/ui->tableWidget->columnCount();
+        average+=ui->tableWidget->item(index,i)->text().toDouble()/(ui->tableWidget->columnCount());
     }
     m_statisticData[index].average=average;
+
 
     //完成写入数据库的操作
     static int counter=0;
@@ -219,7 +226,16 @@ void HsMonitoring::on_readAttribute_triggered()
         db->add_record(1,t_str);
         db->submitAll();
         counter=0;
+        emit(send_statistic_data(m_statisticData));
     }
 }
 
 
+
+void HsMonitoring::on_pushButton_2_clicked()
+{
+    m_statisticData[0].max=100;
+    m_statisticData[1].min=-100;
+    emit(send_statistic_data(m_statisticData));
+    ui->tableWidget->insertColumn(0);
+}
