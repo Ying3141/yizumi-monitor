@@ -34,8 +34,8 @@ void HsAnalysis::loadModelData()
     //根据节点数添加行数
     ui->tableWidget->setRowCount(nodes.size());
     //初始列数默认包括最大值，最小值，平均值，相关系数
-    ui->tableWidget->setColumnCount(4);
-    tableHeader << "最大值" << "最小值" << "平均值" << "相关系数";
+    ui->tableWidget->setColumnCount(5);
+    tableHeader << "最大值" << "最小值" << "平均值" << "方差" << "相关系数";
     ui->tableWidget->setHorizontalHeaderLabels(tableHeader);
 
     QStringList vertical_tableHeader;
@@ -52,9 +52,10 @@ void HsAnalysis::update_table(std::vector<statistic_data>statistic_data)
         QTableWidgetItem *max=new QTableWidgetItem(QString::number(statistic_data[i].max));
         QTableWidgetItem *min=new QTableWidgetItem(QString::number(statistic_data[i].min));
         QTableWidgetItem *avg=new QTableWidgetItem(QString::number(statistic_data[i].average));
+        QTableWidgetItem *var=new QTableWidgetItem(QString::number(statistic_data[i].variance));
         ui->tableWidget->setItem(i,0,max);
         ui->tableWidget->setItem(i,1,min);
         ui->tableWidget->setItem(i,2,avg);
+        ui->tableWidget->setItem(i,3,var);
     }
-
 }

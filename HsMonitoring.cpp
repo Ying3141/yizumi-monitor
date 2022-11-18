@@ -105,6 +105,11 @@ void HsMonitoring::updateModelData()
         statistic_data data;
         m_statisticData.push_back(data);
     }
+    //更新节点信息后清除所有保存的数据。
+    for(auto it:nodes)
+    {
+        it.records.clear();
+    }
 }
 
 void HsMonitoring::initialize_slots()
@@ -190,23 +195,41 @@ void HsMonitoring::on_readAttribute_triggered()
     int index=std::find(m_OpcUaNode.begin(),m_OpcUaNode.end(),node)-m_OpcUaNode.begin();
     ui->tableWidget->setItem(index,0,Item);
 
+    //写入DataModel
+    auto &record = HsDataManage::instance()->getDataModel()[0].nodes[index].records;
+    record.push_back(value);
+
+    //更新统计数据
+    auto columncount=ui->tableWidget->columnCount();
+
     //更新最大值
     if(value>m_statisticData[index].max)
     {
         m_statisticData[index].max=value;
     }
+
     //更新最小值
     if(value<m_statisticData[index].min)
     {
         m_statisticData[index].min=value;
     }
+
     //更新平均值
     double average=0.0;
-    for(int i=0;i<ui->tableWidget->columnCount();i++)
+    for(int i=0;i<columncount;i++)
     {
-        average+=ui->tableWidget->item(index,i)->text().toDouble()/(ui->tableWidget->columnCount());
+        average+=ui->tableWidget->item(index,i)->text().toDouble()/columncount;
     }
     m_statisticData[index].average=average;
+
+    //更新方差
+    double var=0.0;
+    for(int i=0;i<columncount;i++)
+    {
+        var+=pow(average-ui->tableWidget->item(index,i)->text().toDouble(),2);
+    }
+    m_statisticData[index].variance=var/columncount;
+
 
 
     //完成写入数据库的操作
@@ -234,8 +257,10 @@ void HsMonitoring::on_readAttribute_triggered()
 
 void HsMonitoring::on_pushButton_2_clicked()
 {
-    m_statisticData[0].max=100;
-    m_statisticData[1].min=-100;
-    emit(send_statistic_data(m_statisticData));
-    ui->tableWidget->insertColumn(0);
+//    m_statisticData[0].max=100;
+//    m_statisticData[1].min=-100;
+//    emit(send_statistic_data(m_statisticData));
+//    ui->tableWidget->insertColumn(0);
+
+
 }
